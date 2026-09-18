@@ -1,0 +1,18 @@
+.assistant-grid{display:grid;grid-template-columns:minmax(280px,.8fr) minmax(350px,1.2fr);gap:22px;align-items:start}
+.assistant-card{padding:22px;background:var(--panel);border:1px solid var(--line);border-radius:11px;margin-bottom:18px}
+.assistant-card .section-top{margin-bottom:16px}.assistant-card textarea{min-height:95px}.assistant-card label{display:block}
+.assistant-card .assistant-check{display:flex;gap:9px;align-items:center;margin:12px 0;color:var(--muted);font-size:12px}
+.assistant-check input{width:16px;height:16px;padding:0;accent-color:var(--accent-control)}
+.assistant-actions{display:flex;gap:10px;align-items:center;flex-wrap:wrap;margin-top:15px}
+.assistant-context{background:var(--input);padding:12px;border-radius:7px;margin:12px 0;white-space:pre-wrap;overflow-wrap:anywhere;font-size:11px;color:var(--muted);line-height:1.8}
+.assistant-status{margin-top:12px;color:var(--accent-text);min-height:20px;white-space:pre-wrap;overflow-wrap:anywhere}
+.assistant-status.error{color:var(--danger-text)}.assistant-card details{margin:14px 0}.assistant-card summary{cursor:pointer;color:var(--accent-text);padding:7px 0}
+#assistant-lyrics{min-height:280px;font-size:14px}#assistant-notes{white-space:pre-wrap;line-height:1.9;color:var(--text);margin:14px 0}
+#assistant-empty{min-height:370px;display:flex;flex-direction:column;justify-content:center;gap:12px;padding:38px;background:var(--accent-soft);border:1px dashed var(--accent-line);border-radius:9px}
+#assistant-empty strong{font-size:20px;font-weight:500;color:var(--accent-text)}
+.assistant-history-row{display:flex;justify-content:space-between;align-items:center;gap:14px;padding:13px 0;border-bottom:1px solid var(--line)}
+.assistant-history-row strong{display:block;margin-bottom:5px}.assistant-history-row small{color:var(--muted)}
+#assistant-skill-text{max-height:340px;overflow:auto;white-space:pre-wrap;overflow-wrap:anywhere;font:11px/1.7 Consolas,monospace;color:var(--muted)}
+.assistant-launch{display:flex;gap:16px;align-items:center;justify-content:space-between;border:1px solid var(--accent-line);background:var(--accent-soft);padding:14px 18px;border-radius:9px;margin-bottom:22px}
+.assistant-launch p{font-size:11px}.assistant-launch strong{display:block;font-weight:500;margin-bottom:4px}
+@media(max-width:1160px){.assistant-grid{gap:14px;grid-template-columns:minmax(260px,.8fr) minmax(310px,1.2fr)}.assistant-card{padding:16px}}

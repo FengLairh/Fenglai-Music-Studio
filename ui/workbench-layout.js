@@ -1,0 +1,70 @@
+// Reuse the existing finite form controls and local audio workflows in the new workspace.
+(()=>{
+const q=s=>document.querySelector(s),el=(tag,cls,html)=>{const n=document.createElement(tag);if(cls)n.className=cls;if(html)n.innerHTML=html;return n;};
+const retained=new Map([...document.querySelectorAll('[id]')].map(n=>[n.id,n]));
+const take=id=>retained.get(id),move=(parent,...ids)=>{for(const id of ids){const node=take(id);if(node)parent.append(node);}};
+const oldAssistant=q('#page-assistant'),settings=q('#page-models');
+const apiCard=q('#assistant-key').closest('.assistant-card'),skillCard=q('#assistant-skill-read').closest('.assistant-card');
+oldAssistant.replaceChildren();oldAssistant.remove();q('nav [data-page="assistant"]').remove();
+q('nav [data-page="models"]').dataset.page='settings';q('nav [data-page="settings"]').innerHTML='<i data-icon="settings"></i>设置';
+q('.sidebar-bottom').prepend(q('nav [data-page="settings"]'));q('.version').firstChild.textContent='Fenglai 0.10.0 ';
+settings.id='page-settings';retained.set('page-settings',settings);
+settings.querySelector('.page-heading').innerHTML='<div><div class="eyebrow">STUDIO PREFERENCES</div><h1>设置</h1><p>AI 服务、生成参数、模型与环境，统一在这里管理。</p></div>';
+const configuration=el('div','workbench-settings-grid');configuration.append(apiCard,skillCard);settings.querySelector('.page-heading').after(configuration);
+apiCard.querySelector('.section-top').append(take('assistant-ready'));
+const connection=el('p','assistant-status');connection.id='assistant-progress';apiCard.append(connection);
+const generationSettings=el('details','settings-section');generationSettings.open=true;generationSettings.innerHTML='<summary>音乐生成与 Cover 默认参数</summary><div class="workbench-settings-grid"></div>';
+configuration.after(generationSettings);
+const legacy=el('div');legacy.id='legacy-controls';legacy.hidden=true;document.body.append(legacy);
+function aiPanel(mode){return `<section class="inline-ai" data-inline-ai="${mode}" hidden><div class="pane-title"><strong data-ai-title>AI 辅助</strong><button class="icon-button" data-ai-close aria-label="收起 AI 辅助"><i data-icon="x"></i></button></div><p data-ai-context class="help"></p><textarea data-ai-brief rows="3" maxlength="6000" placeholder="描述你希望怎样修改…" aria-label="AI 修改要求"></textarea><div class="ai-request-row"><button class="button secondary" data-ai-run>生成建议</button><button class="text-button" data-ai-cancel hidden>停止</button><button class="text-button" data-ai-settings>AI 设置</button></div><p data-ai-status class="help" role="status"></p><div data-ai-result hidden><label class="field-label">建议预览 · 可直接编辑</label><textarea data-ai-preview rows="7" maxlength="40000" aria-label="AI 建议预览"></textarea><p data-ai-notes class="help"></p><button class="button primary" data-ai-apply>应用到当前字段</button></div><details><summary>最近的 AI 方案</summary><div data-ai-history class="inline-history"></div></details><p class="ai-disclosure">DeepSeek 联网处理当前文字与乐谱，不上传音频。</p></section>`;}
+function scoreArea(mode){return `<section class="score-pane" data-score-pane="${mode}"><div class="score-tabs"><div class="tab-group"><button class="active" data-score-tab="staff">五线谱</button><button data-score-tab="abc">ABC 源码</button></div><div class="score-file-actions"><button class="text-button" data-score-action="new">新建</button><button class="text-button" data-score-action="import">导入 ABC</button><button class="button secondary small" data-ai-open="score" data-mode="${mode}"><i data-icon="wand"></i>AI 乐谱</button></div></div><div class="score-toolbar"><button data-score-action="undo" title="撤销 Ctrl+Z" aria-label="撤销"><i data-icon="undo"></i></button><button data-score-action="redo" title="重做 Ctrl+Shift+Z" aria-label="重做"><i data-icon="redo"></i></button><span class="tool-divider"></span><button data-score-action="split" title="拆分当前音符">拆分</button><button data-score-action="tie" title="连接或解除同音高延音">延音</button><button data-score-action="rest" title="改为休止符">休止</button><button data-score-action="note" title="将休止改为音符">写音符</button><button data-score-action="add-bar" title="两个声部同时增加小节"><i data-icon="plus"></i>小节</button><button data-score-action="lyric-mode" class="active" title="点选音符，直接在谱上填词">谱上填词</button><span class="tool-spacer"></span><label class="tempo-control"><input data-score-tempo type="number" min="20" max="400" step="1" value="80" aria-label="乐谱速度">BPM</label></div><p data-score-error class="score-error" role="status" hidden></p><div class="score-scroll" data-score-staff><div class="score-empty"><i data-icon="file-music"></i><h2>从一段旋律开始</h2><p>${mode==='cover'?'导入原曲并提取旋律，五线谱会显示在这里。':'导入 ABC、新建乐谱，或让 AI 根据歌词起草旋律。'}</p><button class="button secondary" data-score-action="new">新建四小节乐谱</button></div><div class="score-paper" data-score-paper></div><input class="on-score-lyric" data-score-float hidden maxlength="40" aria-label="谱上歌词编辑"></div><div class="score-source-view" data-score-source hidden></div><div class="score-structure" data-score-structure></div><div class="score-transport"><button class="button secondary small" data-score-action="play"><i data-icon="play"></i>乐谱试听</button><button class="icon-button" data-score-action="stop" aria-label="停止乐谱试听"><i data-icon="stop"></i></button><span data-score-time>0:00 / 0:00</span><span class="tool-spacer"></span><select data-score-voice aria-label="试听声部"><option value="all">全部声部</option><option value="Vocal">人声旋律</option><option value="Ins">器乐旋律</option></select><select data-score-zoom aria-label="乐谱缩放"><option value="0.85">85%</option><option value="1" selected>100%</option><option value="1.2">120%</option></select><details class="export-menu"><summary>导出</summary><button data-score-action="export-abc">ABC + 填词数据</button><button data-score-action="export-midi">MIDI</button><button data-score-action="export-svg">SVG 乐谱</button><button data-score-action="print">打印 / PDF</button></details></div></section>`;}
+function inspector(mode){return `<aside class="workbench-inspector"><section class="note-inspector" data-inspector="${mode}"><div class="pane-title"><strong>音符与填词</strong><div><button class="icon-button" data-note-prev aria-label="上一个音符"><i data-icon="left"></i></button><button class="icon-button" data-note-next aria-label="下一个音符"><i data-icon="right"></i></button></div></div><p data-note-position class="help">点选五线谱上的音符开始编辑</p><label class="field-label">音高</label><select data-note-pitch aria-label="音符音高" disabled></select><label class="field-label">时值</label><select data-note-duration aria-label="音符时值" disabled><option value="0.125">三十二分音符</option><option value="0.25">十六分音符</option><option value="0.5">八分音符</option><option value="0.75">附点八分音符</option><option value="1">四分音符</option><option value="1.5">附点四分音符</option><option value="2">二分音符</option><option value="3">附点二分音符</option><option value="4">全音符</option></select><label class="field-label">当前歌词 <span>_ 表示延长前一个字</span></label><input data-note-lyric maxlength="40" aria-label="当前音符歌词" placeholder="点音符，也可直接在谱上填词" disabled><label class="field-label">和弦</label><input data-note-chord maxlength="20" aria-label="当前音符和弦" placeholder="如 C、Am7、D7/F#" disabled><div class="alignment-summary"><span data-alignment-status>等待乐谱与歌词</span><button class="text-button" data-score-align>按音符重新试排</button></div><p class="help">填词试排需试听校对。可拖动谱上音符，或用上方属性精确编辑。</p></section>${aiPanel(mode)}</aside>`;}
+for(const mode of ['create','cover']){
+ const page=q('#page-'+mode),prefix=mode==='create'?'song':'cover';
+ const settingsCard=mode==='create'?page.querySelector('.settings-card'):page.querySelector('.cover-side .cover-card');
+ const heading=el('div','workbench-heading',`<div class="workbench-heading-title"><span class="workspace-name">${mode==='create'?'音乐创作':'歌曲 Cover'}</span><span class="heading-slash">/</span></div><div class="workbench-heading-actions"></div>`);
+ move(heading.firstChild,prefix+'-title');move(heading.lastChild,mode==='create'?'draft-status':'cover-draft-status',mode==='create'?'generate':'cover-generate');
+ generationSettings.querySelector('.workbench-settings-grid').append(settingsCard);
+ if(mode==='create'){const hardware=page.querySelector('.hardware-card');settings.append(hardware);move(settings,'setup-banner');}
+ else move(settings,'cover-setup');
+ const style=el('section','workbench-style',`<label class="field-label" for="${prefix}-style">${mode==='cover'?'新的音乐风格':'音乐风格'}</label><div class="workbench-style-field"></div><button class="button secondary" data-ai-open="style" data-mode="${mode}"><i data-icon="wand"></i>${mode==='cover'?'AI 改曲风':'AI 写风格'}</button>`);move(style.children[1],prefix+'-style');
+ const grid=el('div','workbench-grid',`<section class="lyrics-pane composer"><div class="pane-title"><strong>${mode==='cover'?'Cover 歌词':'歌词'}</strong><button class="button secondary small" data-ai-open="lyrics" data-mode="${mode}"><i data-icon="wand"></i>${mode==='cover'?'AI 改词':'AI 写词'}</button></div><div class="lyrics-section-nav"></div><div class="lyric-field"></div><div class="lyrics-tools"></div><p class="help">段落标签保留在歌词中；点选五线谱音符可直接填词。</p></section>${scoreArea(mode)}${inspector(mode)}`);
+ move(grid.querySelector('.lyric-field'),prefix+'-lyrics');
+ if(mode==='create')move(grid.querySelector('.lyrics-tools'),'lyrics-count','sample-lyrics','import-lyrics','add-section');else move(grid.querySelector('.lyrics-tools'),'cover-import-lyrics');
+ const sourceView=grid.querySelector('[data-score-source]');move(sourceView,mode==='create'?'score-details':'cover-score-details');const detail=sourceView.querySelector('details');if(detail)detail.open=true;
+ const source=mode==='cover'?el('section','source-strip',`<div class="source-head"><strong>原曲与选段</strong></div><div class="source-content"></div><div class="source-score-actions"></div>`):null;
+ if(source){move(source.querySelector('.source-head'),'cover-import','cover-ready');move(source.querySelector('.source-content'),'cover-source-empty','cover-source-content');move(source.querySelector('.source-score-actions'),'cover-mode','cover-transcribe','cover-score-status','cover-task-status','cover-warnings');move(settings,'cover-export-abc','cover-export-midi');}
+ const queue=mode==='create'?page.querySelector('.queue-section'):el('details','workbench-history','<summary>转谱与 Cover 任务</summary>');
+ if(mode==='cover')move(queue,'cover-history');
+ const hint=take(mode==='create'?'generate-hint':'cover-generate-hint');heading.lastChild.append(hint);
+ for(const node of [...page.childNodes])legacy.append(node);
+ page.classList.add('workbench-page');page.append(heading);if(source)page.append(source);page.append(style,grid,queue);
+ // Keep writing, notation and AI in the same workspace, without a side inspector.
+ const brief=el('div','creative-brief');
+ const theme=el('section','workbench-theme',`<label class="field-label" for="${prefix}-theme">${mode==='cover'?'改编主题':'创作主题'}<span>提供给各处 AI 辅助</span></label><textarea id="${prefix}-theme" rows="2" maxlength="2000" placeholder="例如：写给毕业后各奔东西的朋友，怀念但不伤感，副歌表达重逢的期待。"></textarea>`);
+ style.before(brief);brief.append(theme,style);style.classList.add('field-composer');
+ const styleHeader=el('div','field-heading');styleHeader.append(style.querySelector('.field-label'),style.querySelector('[data-ai-open]'));style.prepend(styleHeader);
+ const styleSlot=el('div','field-ai-slot');styleSlot.dataset.aiSlot='style';style.append(styleSlot);
+ const pane=grid.querySelector('.score-pane'),lyrics=grid.querySelector('.lyrics-pane'),side=grid.querySelector('.workbench-inspector');
+ const lyricsTab=el('button','',mode==='cover'?'Cover 歌词':'歌词');lyricsTab.dataset.scoreTab='lyrics';pane.querySelector('[data-score-tab="abc"]').before(lyricsTab);
+ const styleTab=el('button','',mode==='cover'?'新的音乐风格':'音乐风格');styleTab.dataset.scoreTab='style';pane.querySelector('[data-score-tab="abc"]').before(styleTab);style.dataset.scoreStyle='';style.hidden=true;pane.querySelector('[data-score-source]').after(style);
+ lyrics.dataset.scoreLyrics='';lyrics.hidden=true;pane.querySelector('[data-score-source]').after(lyrics);
+ const lyricsSlot=el('div','field-ai-slot');lyricsSlot.dataset.aiSlot='lyrics';lyrics.querySelector('.pane-title').after(lyricsSlot);
+ const scoreSlot=el('div','field-ai-slot');scoreSlot.dataset.aiSlot='score';pane.querySelector('.score-tabs').after(scoreSlot);
+ const note=side.querySelector('[data-inspector]');note.classList.add('note-inline');pane.querySelector('.score-toolbar').after(note);
+ note.hidden=true;const noteToggle=el('button','','音符属性');noteToggle.dataset.noteToggle='';noteToggle.setAttribute('aria-expanded','false');pane.querySelector('.score-toolbar .tool-spacer').before(noteToggle);
+ const lyricField=note.querySelector('[data-note-lyric]'),lyricLabel=lyricField.previousElementSibling,lyricWrap=el('div','note-lyric-field');lyricLabel.before(lyricWrap);lyricWrap.append(lyricLabel,lyricField);
+ const alignment=el('details','note-alignment');alignment.innerHTML='<summary>填词校对</summary>';note.append(alignment);alignment.append(note.querySelector('.alignment-summary'));
+ const transport=pane.querySelector('.score-transport');note.after(transport);
+ styleSlot.append(side.querySelector('.inline-ai'));side.remove();
+}
+// Keep original/result comparison playback separate from the source editor.
+const comparison=take('cover-comparison');if(comparison)q('#page-cover').append(comparison);
+const voiceConfig=el('details','settings-section');voiceConfig.open=true;voiceConfig.innerHTML='<summary>音色 Cover 默认质量</summary>';
+for(const id of ['voice-steps','voice-seed']){const node=take(id);voiceConfig.append(node.previousElementSibling,node);}
+settings.append(voiceConfig);
+// All installation actions live in Settings, including the voice-conversion module.
+const voiceSetup=take('voice-setup');if(voiceSetup)settings.append(voiceSetup);
+const history=el('section','assistant-card');history.innerHTML='<div class="section-top"><span class="section-title">AI 方案历史</span></div><div id="assistant-history"></div>';settings.append(history);
+document.querySelector('.topbar').hidden=true;
+})();

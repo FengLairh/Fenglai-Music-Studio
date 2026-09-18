@@ -1,0 +1,271 @@
+{
+  "models": [
+    {
+      "name": "SheetSage2",
+      "repo": "m-a-p/SheetSage2",
+      "revision": "eab522a8168e8b8b8c4856bf8609cd86198f01fe",
+      "files": [
+        "LICENSE",
+        "README.md",
+        "THIRD_PARTY_NOTICES.md",
+        "__init__.py",
+        "audio_sheetsage2.py",
+        "benchmark_results.json",
+        "config.json",
+        "configuration_mert2.py",
+        "configuration_sheetsage2.py",
+        "durations_sheetsage2.py",
+        "exports_sheetsage2.py",
+        "generation_sheetsage2.py",
+        "infer.py",
+        "io_sheetsage2.py",
+        "labels_sheetsage2.py",
+        "midi_sheetsage2.py",
+        "model.safetensors",
+        "modeling_mert2.py",
+        "modeling_sheetsage2.py",
+        "notation_sheetsage2.py",
+        "pipeline_sheetsage2.py",
+        "processing_sheetsage2.py",
+        "processor_config.json",
+        "render.py",
+        "rendering_sheetsage2.py",
+        "requirements-render.txt",
+        "requirements.txt",
+        "schema_sheetsage2.py",
+        "setup_render.py",
+        "tensors_sheetsage2.py",
+        "tokenization_sheetsage2.py"
+      ],
+      "sizes": [
+        {
+          "name": "LICENSE",
+          "bytes": 20000,
+          "gitBlob": "ce18e5ba29e6ad24f24b0bfaa4a682a6cf824ff6"
+        },
+        {
+          "name": "README.md",
+          "bytes": 10929,
+          "gitBlob": "12df390b396e7a7371384a1484b678eaf3d26adf"
+        },
+        {
+          "name": "THIRD_PARTY_NOTICES.md",
+          "bytes": 589,
+          "gitBlob": "d7f9bf8726ca519dc86a42f5464d47fa91354bb4"
+        },
+        {
+          "name": "__init__.py",
+          "bytes": 39,
+          "gitBlob": "534c8db9ea190d93c0fd41b7b683cd516988b7c3"
+        },
+        {
+          "name": "audio_sheetsage2.py",
+          "bytes": 4289,
+          "gitBlob": "264af19012fc986101c17ff002bb6ba5310f14ea"
+        },
+        {
+          "name": "benchmark_results.json",
+          "bytes": 8643,
+          "gitBlob": "b03c6a3f7139326a4aecbfb1f96f7da3a14477dc"
+        },
+        {
+          "name": "config.json",
+          "bytes": 2060,
+          "gitBlob": "e8eb3dc877ce5dcac60b3570e343634e0afbc44e"
+        },
+        {
+          "name": "configuration_mert2.py",
+          "bytes": 3860,
+          "gitBlob": "f07208f8a08b8743d47026956c622eaa062d6963"
+        },
+        {
+          "name": "configuration_sheetsage2.py",
+          "bytes": 4119,
+          "gitBlob": "48b1954971c6d853a2fc641c0c69a4398f5b0ac8"
+        },
+        {
+          "name": "durations_sheetsage2.py",
+          "bytes": 296,
+          "gitBlob": "2ad9c7eabb63733502ebd8cddd94f139b61100fd"
+        },
+        {
+          "name": "exports_sheetsage2.py",
+          "bytes": 9820,
+          "gitBlob": "1d93e5482cf1daa9328d7089d5f5d9717248e734"
+        },
+        {
+          "name": "generation_sheetsage2.py",
+          "bytes": 24722,
+          "gitBlob": "da4ee0cd59f4122a1309dec7d8f58e2213de2af5"
+        },
+        {
+          "name": "infer.py",
+          "bytes": 4253,
+          "gitBlob": "0dc1570f28f13263d660df0b018933fbde8de93c"
+        },
+        {
+          "name": "io_sheetsage2.py",
+          "bytes": 1830,
+          "gitBlob": "0e27cc72233ce5b029a01c6d2a5f45ed5f159be6"
+        },
+        {
+          "name": "labels_sheetsage2.py",
+          "bytes": 978,
+          "gitBlob": "879999de3642e95c6f703d7fbe85167cca5c19fa"
+        },
+        {
+          "name": "midi_sheetsage2.py",
+          "bytes": 4230,
+          "gitBlob": "7cc393644c4165b16e93c2cbe9cf5109ef6907ab"
+        },
+        {
+          "name": "model.safetensors",
+          "bytes": 228738564,
+          "sha256": "b235f68091a5f5b644000f2b5acb57d1e70432aca2b34ab1b9cf27236e1f4274"
+        },
+        {
+          "name": "modeling_mert2.py",
+          "bytes": 17081,
+          "gitBlob": "0369f732d561917d8d1a4d252f802ad4e23f3d4c"
+        },
+        {
+          "name": "modeling_sheetsage2.py",
+          "bytes": 24602,
+          "gitBlob": "df5c76522f6c806ce9d46177bfab3189b4e0a241"
+        },
+        {
+          "name": "notation_sheetsage2.py",
+          "bytes": 55775,
+          "gitBlob": "a4a6da099b05e7ff956e913a6ab366d96e23f1ce"
+        },
+        {
+          "name": "pipeline_sheetsage2.py",
+          "bytes": 15022,
+          "gitBlob": "bdeb9da32ae4a97b8ddcc66ec9a134c3ab4a9d1c"
+        },
+        {
+          "name": "processing_sheetsage2.py",
+          "bytes": 5346,
+          "gitBlob": "5f9642f57f4e48c66002b6d5cbcdb125da84e2cd"
+        },
+        {
+          "name": "processor_config.json",
+          "bytes": 277,
+          "gitBlob": "8dbba2cc459657bf4f17e1c684bd41c636e4e24f"
+        },
+        {
+          "name": "render.py",
+          "bytes": 1927,
+          "gitBlob": "a0c6b690e180ef57b5b5f73b475f981adb513b84"
+        },
+        {
+          "name": "rendering_sheetsage2.py",
+          "bytes": 15862,
+          "gitBlob": "ae3ea8b3cbb62a5b03dce17c336b7c7e46d8332b"
+        },
+        {
+          "name": "requirements-render.txt",
+          "bytes": 58,
+          "gitBlob": "62924031791cb03af9f3dc115d216f8a64a07dc1"
+        },
+        {
+          "name": "requirements.txt",
+          "bytes": 190,
+          "gitBlob": "641a1f9495a5be42a9afe699c89deec5e0508e47"
+        },
+        {
+          "name": "schema_sheetsage2.py",
+          "bytes": 3893,
+          "gitBlob": "a8b21fcd28098af1bee0894f6de4f81ab32ec007"
+        },
+        {
+          "name": "setup_render.py",
+          "bytes": 1540,
+          "gitBlob": "fc0d2cd683a94fd1e434f2ece1277a88f66156bf"
+        },
+        {
+          "name": "tensors_sheetsage2.py",
+          "bytes": 4645,
+          "gitBlob": "aff5b3dff79c21fd26e7674cf7421d65aad764c4"
+        },
+        {
+          "name": "tokenization_sheetsage2.py",
+          "bytes": 29913,
+          "gitBlob": "035733048267e60ddb7c8dbc828e1a217492c49d"
+        }
+      ]
+    },
+    {
+      "name": "MERT-v2-FullSong",
+      "repo": "m-a-p/MERT-v2-FullSong",
+      "revision": "d8ba1c745e733b3908ce6ad16ebeb17ac7600a42",
+      "files": [
+        "LICENSE",
+        "README.md",
+        "THIRD_PARTY_NOTICES.md",
+        "config.json",
+        "configuration_mert2.py",
+        "marble_results.json",
+        "model.safetensors",
+        "modeling_mert2.py",
+        "preprocessor_config.json",
+        "weights_manifest.json"
+      ],
+      "sizes": [
+        {
+          "name": "LICENSE",
+          "bytes": 20000,
+          "gitBlob": "ce18e5ba29e6ad24f24b0bfaa4a682a6cf824ff6"
+        },
+        {
+          "name": "README.md",
+          "bytes": 10419,
+          "gitBlob": "063f1a1110355e04e0b3921a0c1e95c9bd7b9a34"
+        },
+        {
+          "name": "THIRD_PARTY_NOTICES.md",
+          "bytes": 541,
+          "gitBlob": "b330a93214b6516f4721fa91521332383484a1f0"
+        },
+        {
+          "name": "config.json",
+          "bytes": 882,
+          "gitBlob": "e6adbdaf587c162a7d1e03a252372f90ce0efe8f"
+        },
+        {
+          "name": "configuration_mert2.py",
+          "bytes": 3860,
+          "gitBlob": "f07208f8a08b8743d47026956c622eaa062d6963"
+        },
+        {
+          "name": "marble_results.json",
+          "bytes": 8997,
+          "gitBlob": "8b7519c12ab259ef6dc0ac067e610a3b431528aa"
+        },
+        {
+          "name": "model.safetensors",
+          "bytes": 2529812848,
+          "sha256": "e6dd2ab187d6dd62b6521cd7d8f932e237acf0c5757745a7232082e28391350d"
+        },
+        {
+          "name": "modeling_mert2.py",
+          "bytes": 17081,
+          "gitBlob": "0369f732d561917d8d1a4d252f802ad4e23f3d4c"
+        },
+        {
+          "name": "preprocessor_config.json",
+          "bytes": 215,
+          "gitBlob": "54daaeee6f791c77a0057800b1ec1da60190cfb6"
+        },
+        {
+          "name": "weights_manifest.json",
+          "bytes": 241,
+          "gitBlob": "1b7d41ec8430dea4fa6f29e4c146a7cb99f12895"
+        }
+      ]
+    }
+  ],
+  "schema": 1,
+  "python": "3.11.11",
+  "purpose": "Audio to ABC for YuE2 Cover"
+}

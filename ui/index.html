@@ -1,0 +1,230 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'; style-src 'self'; img-src 'self' data:; media-src yue-audio:; connect-src 'none'; object-src 'none'; base-uri 'none'; form-action 'none'">
+  <title>Fenglai音乐工作台</title>
+  <link rel="stylesheet" href="styles.css">
+  <link rel="stylesheet" href="cover.css">
+  <link rel="stylesheet" href="assistant.css">
+  <link rel="stylesheet" href="workbench.css">
+</head>
+<body>
+  <aside class="sidebar">
+    <a class="brand" href="#create" aria-label="Fenglai音乐工作台 首页"><img class="brand-icon" src="assets/fenglai-icon.png" alt=""><span class="brand-word">Fenglai<span>音乐工作台</span></span></a>
+    <div class="workspace-label">你的工作空间</div>
+    <nav aria-label="主导航">
+      <button data-page="create" class="nav-item active"><i data-icon="spark"></i>音乐创作<span class="key">01</span></button>
+      <button data-page="cover" class="nav-item"><i data-icon="music"></i>歌曲 Cover<span class="key">NEW</span></button>
+      <button data-page="voice" class="nav-item"><i data-icon="music"></i>音色 Cover</button>
+      <button data-page="assistant" class="nav-item"><i data-icon="spark"></i>创作助手<span class="key">AI</span></button>
+      <button data-page="library" class="nav-item"><i data-icon="library"></i>我的作品<span id="library-count" class="count">0</span></button>
+      <button data-page="models" class="nav-item"><i data-icon="box"></i>模型与环境</button>
+    </nav>
+    <div class="sidebar-bottom">
+      <div class="engine-mini"><span class="small-dot"></span><div>YuE2 · 3B<span>本地推理引擎</span></div><span class="engine-tag">0.1.6</span></div>
+      <button id="repo-link" class="text-button"><i data-icon="arrow-up-right"></i>上游开源项目</button>
+      <div class="version">Fenglai 0.10.0 <span>Windows</span></div>
+    </div>
+  </aside>
+  <main>
+    <header class="topbar"><div><span class="breadcrumb">工作空间</span><span class="slash">/</span><span id="page-label">音乐创作</span></div><div class="topbar-right"><span class="local-badge"><span class="small-dot"></span>音频在本机生成</span><button id="open-data" class="icon-button" aria-label="打开本地数据目录"><i data-icon="folder"></i></button></div></header>
+
+    <section id="page-cover" class="page" hidden>
+      <div class="page-heading compact"><div><div class="eyebrow">SAME MELODY. A NEW EXPRESSION.</div><h1>熟悉的旋律，新的表达<span>。</span></h1><p>导入一首歌，提取旋律，让它以你喜欢的风格重新演唱。</p></div><span id="cover-ready" class="status-pill">检查 Cover 环境</span></div>
+      <div id="cover-setup" class="notice"><i data-icon="box"></i><div><strong>准备音频转谱引擎</strong><span>一键安装 SheetSage2、MERT 和独立运行环境。准备完成后可离线使用。</span></div><button id="cover-install" class="button secondary">一键准备 Cover ↗</button></div>
+      <div class="assistant-launch"><div><strong>让这次改编，有新的表达</strong><p>带入当前歌词与旋律谱，让 DeepSeek 协助改词、设计曲风与检查可唱性。</p></div><button class="button secondary" data-assistant-open="cover">辅助创作 Cover ↗</button></div>
+      <div class="cover-layout">
+        <div class="cover-main">
+          <section class="cover-card"><div class="section-top"><span class="section-title"><b class="step-number">01</b>导入原曲</span><button id="cover-import" class="button secondary small"><i data-icon="upload"></i>选择音乐文件</button></div>
+            <div id="cover-source-empty" class="cover-empty"><i data-icon="music"></i><strong>把想改编的歌带进来</strong><p>MP3 / WAV / FLAC / M4A / OGG / AAC<br>5 秒–10 分钟 · 最大 500MB · 文件保存在本机</p></div>
+            <div id="cover-source-content" hidden><label class="field-label" for="cover-source">已导入的原曲</label><select id="cover-source" aria-label="选择原曲"></select><p id="cover-source-info" class="help"></p><audio id="cover-source-audio" controls preload="metadata"></audio>
+              <div class="clip-fields"><label>开始时间（秒）<input id="cover-start" type="number" value="0" min="0" max="600" step="0.1"></label><span>→</span><label>结束时间（秒）<input id="cover-end" type="number" value="30" min="5" max="600" step="0.1"></label><button id="cover-play-clip" class="button secondary small">试听片段</button></div>
+              <p class="help">选择 5–300 秒的片段。首次建议先试 20–30 秒，歌词与所选片段对应。</p>
+            </div>
+          </section>
+          <section class="cover-card"><div class="section-top"><span class="section-title"><b class="step-number">02</b>提取与编辑旋律</span><span id="cover-score-status" class="muted small">等待导入原曲</span></div>
+            <label class="field-label" for="cover-mode">改编方式</label><select id="cover-mode"><option value="melody">保留旋律 · 自由改编伴奏</option><option value="full">保留旋律与和弦</option></select><p class="help">转谱会识别人声与器乐旋律。自动识别可能有偏差，可以修改 ABC 乐谱后再生成。</p>
+            <button id="cover-transcribe" class="button secondary" disabled><i data-icon="music"></i>自动提取乐谱</button>
+            <div id="cover-task-status" class="cover-task" role="status" hidden></div><p id="cover-warnings" class="cover-warnings" hidden></p>
+            <details id="cover-score-details"><summary><span>查看 / 编辑 ABC 乐谱</span><span class="muted">可编辑 ＋</span></summary><textarea id="cover-abc" rows="9" maxlength="40000" spellcheck="false" aria-label="Cover ABC 乐谱" placeholder="提取完成后，乐谱会出现在这里。"></textarea><div class="cover-inline-actions"><button id="cover-export-abc" class="text-button" disabled>导出原始 ABC</button><button id="cover-export-midi" class="text-button" disabled>导出 MIDI</button></div></details>
+          </section>
+          <section class="cover-card"><div class="section-top"><span class="section-title"><b class="step-number">03</b>写下这次改编</span><span id="cover-draft-status" class="muted small">草稿自动保存</span></div>
+            <label class="field-label" for="cover-title">作品名称</label><input id="cover-title" maxlength="100" placeholder="为这次 Cover 取个名字">
+            <div class="label-row"><label class="field-label" for="cover-style">新的音乐风格</label></div><textarea id="cover-style" rows="3" maxlength="2000" placeholder="例如：Mandarin acoustic folk, intimate female vocal, fingerpicked guitar, warm strings"></textarea>
+            <div class="style-chips"><button data-cover-style="Mandarin acoustic folk, intimate female vocal, fingerpicked guitar, warm strings, gentle tempo">原声民谣</button><button data-cover-style="Mandarin jazz, soulful male vocal, upright bass, brushed drums, warm piano">爵士改编</button><button data-cover-style="Mandarin synthwave, airy female vocal, analog synths, electronic drums">电子流行</button><button data-cover-style="Mandarin rock ballad, powerful female vocal, electric guitar, cinematic drums">摇滚抒情</button></div>
+            <div class="label-row"><label class="field-label" for="cover-lyrics">演唱歌词</label><button id="cover-import-lyrics" class="text-button">导入 TXT</button></div><textarea id="cover-lyrics" rows="10" maxlength="12000" placeholder="填写所选片段的原歌词，或改写后的新歌词。使用 [Verse]、[Chorus] 标注段落。"></textarea><p class="help">歌词需要自行填写。保持字数和分句接近原曲，有助于旋律与演唱对齐。</p>
+          </section>
+        </div>
+        <aside class="cover-side">
+          <div class="cover-card"><div class="section-top"><span class="section-title"><i data-icon="sliders"></i>Cover 设置</span></div>
+            <label class="field-label" for="cover-profile">运行预设</label><select id="cover-profile"><option value="low-memory">16GB 实验模式</option><option value="balanced">24GB 标准模式</option></select>
+            <div class="label-row"><label class="field-label" for="cover-tokens">生成上限</label></div><select id="cover-tokens"><option value="750">约 30 秒 · 750 tokens</option><option value="1500" selected>约 60 秒 · 1500 tokens</option><option value="3000">约 120 秒 · 3000 tokens</option><option value="9000">约 360 秒 · 9000 tokens</option></select><p class="help">上限不是精确时长。达到上限时可能截断，较长片段建议提高上限。</p>
+            <label class="field-label" for="cover-seed">随机种子</label><input id="cover-seed" type="number" value="42" min="0" step="1">
+            <div class="format-row"><span>输出音频</span><strong>WAV / FLAC <b>48kHz</b></strong></div><button id="cover-generate" class="button primary generate" disabled><i data-icon="spark"></i>生成 Cover</button><p id="cover-generate-hint" class="generate-hint">先导入音频并提取乐谱</p>
+          </div>
+          <div class="cover-card cover-flow"><strong>一次本地改编</strong><ol><li>听原曲，选择片段</li><li>提取旋律与节拍</li><li>填写歌词和新曲风</li><li>生成、对比与导出</li></ol><p class="help">转谱和生成自动排队，全流程使用同一张显卡。生成效果取决于原曲清晰度、乐谱准确度和模型表现。</p></div>
+        </aside>
+      </div>
+      <section id="cover-comparison" class="cover-card cover-comparison" hidden><div class="section-top"><span class="section-title">原片段 / Cover 对比试听</span><span id="cover-comparison-title" class="muted small"></span></div><div class="compare-grid"><label>原片段<audio id="cover-original" controls preload="metadata"></audio></label><label>生成的 Cover<audio id="cover-output" controls preload="metadata"></audio></label></div></section>
+      <div class="queue-section"><div class="section-top"><span class="section-title"><i data-icon="queue"></i>Cover 任务</span><span class="muted small">转谱、生成与导出记录</span></div><div id="cover-history"></div></div>
+    </section>
+
+    <section id="page-voice" class="page" hidden>
+      <div class="page-heading compact"><div><div class="eyebrow">A FAMILIAR SONG. YOUR CHOSEN VOICE.</div><h1>同一首歌，换个声音<span>。</span></h1><p>上传一段目标声音，让歌曲以接近它的音色演唱。保留歌词、旋律与原伴奏。</p></div><span id="voice-ready" class="status-pill">检查音色环境</span></div>
+      <div id="voice-setup" class="notice"><i data-icon="box"></i><div><strong>准备歌声音色转换引擎</strong><span>Seed-VC + 人声分离。准备完成后离线运行，无需训练个人模型。</span></div><button id="voice-install" class="button secondary">一键准备音色替换 ↗</button></div>
+      <div class="cover-layout"><div class="cover-main">
+        <section class="cover-card"><div class="section-top"><span class="section-title"><b class="step-number">01</b>选择要演唱的歌曲</span><button id="voice-import-source" class="button secondary small">导入歌曲</button></div>
+          <label class="field-label" for="voice-source">已导入歌曲 / 已生成作品</label><select id="voice-source"><option value="">请选择歌曲</option></select><p id="voice-source-info" class="help">可直接换原曲音色，也可从作品列表选择「替换音色」。</p>
+          <audio id="voice-source-audio" controls preload="metadata"></audio>
+          <div class="clip-fields"><label>开始（秒）<input id="voice-start" type="number" min="0" max="600" step="0.1" value="0"></label><span>→</span><label>结束（秒）<input id="voice-end" type="number" min="5" max="600" step="0.1" value="30"></label><button id="voice-play-source" class="button secondary small">试听片段</button></div>
+          <label class="voice-check"><input id="voice-source-music" type="checkbox" checked>歌曲包含伴奏，自动分离后保留伴奏</label><p class="help">每次处理 5–300 秒，建议先试 20–30 秒。只有干声时取消勾选。</p>
+        </section>
+        <section class="cover-card"><div class="section-top"><span class="section-title"><b class="step-number">02</b>上传目标声音</span><button id="voice-import-reference" class="button secondary small">导入参考声音</button></div>
+          <label class="field-label" for="voice-reference">目标音色参考</label><select id="voice-reference"><option value="">请选择参考声音</option></select><p id="voice-reference-info" class="help">使用清晰的单人说话或清唱片段，建议 10–15 秒；相似度受录音质量与音域影响。</p>
+          <audio id="voice-reference-audio" controls preload="metadata"></audio>
+          <div class="clip-fields"><label>开始（秒）<input id="voice-reference-start" type="number" min="0" max="600" step="0.1" value="0"></label><span>→</span><label>结束（秒）<input id="voice-reference-end" type="number" min="5" max="600" step="0.1" value="12"></label><button id="voice-play-reference" class="button secondary small">试听片段</button></div>
+          <label class="voice-check"><input id="voice-reference-music" type="checkbox">参考声音包含伴奏，先提取人声</label><p class="help">说话录音和干净清唱无需勾选。建议 10–15 秒连续单人声音；说话参考只提供音色，拖腔、气息与节奏沿用原唱。</p>
+        </section>
+        <section class="cover-card"><div class="section-top"><span class="section-title"><b class="step-number">03</b>调整与保存</span><span id="voice-draft-status" class="muted small">草稿自动保存</span></div>
+          <label class="field-label" for="voice-title">作品名称</label><input id="voice-title" maxlength="100" placeholder="为这次音色 Cover 取个名字">
+          <div class="voice-gains"><label>人声音量（dB）<input id="voice-vocal-gain" type="number" min="-12" max="12" step="1" value="0"></label><label>伴奏音量（dB）<input id="voice-instrumental-gain" type="number" min="-12" max="12" step="1" value="0"></label></div>
+          <p class="help">无需填写歌词，直接转换歌曲现有的演唱。换歌词或换曲风时，先在「歌曲 Cover」完成改编，再替换音色。</p>
+        </section>
+      </div><aside class="cover-side"><div class="cover-card"><div class="section-top"><span class="section-title">音色转换设置</span></div>
+        <label class="field-label" for="voice-pitch">演唱升降调（半音）</label><input id="voice-pitch" type="number" min="-12" max="12" step="1" value="0">
+        <label class="field-label" for="voice-pitch-mode">变调范围</label><select id="voice-pitch-mode"><option value="song">人声与伴奏同步变调</option><option value="vocal">仅人声变调</option></select><p class="help">0 保留原调。高音女声转低男声可先试 -12（低八度）；同步变调保持节奏速度。仅人声变调需注意与伴奏和声是否匹配。</p>
+        <label class="voice-check"><input id="voice-dynamics" type="checkbox" checked>保留原唱强弱与停顿</label><p class="help">匹配演唱力度，减轻停顿处杂音；不混入原唱音色。</p>
+        <label class="field-label" for="voice-steps">转换质量</label><select id="voice-steps"><option value="10">快速试听 · 10 步</option><option value="30">标准 · 30 步</option><option value="50" selected>精细 · 50 步</option></select>
+        <label class="field-label" for="voice-seed">随机种子</label><input id="voice-seed" type="number" min="0" max="2147483647" step="1" value="42">
+        <div class="format-row"><span>混音输出</span><strong>WAV / FLAC <b>48kHz</b></strong></div><button id="voice-generate" class="button primary generate" disabled>开始替换音色</button><p id="voice-generate-hint" class="generate-hint">选择歌曲与参考声音</p>
+      </div><div class="cover-card cover-flow"><strong>单显卡，完整流程</strong><ol><li>分离原曲人声与伴奏</li><li>读取参考声音的音色</li><li>转换人声并保留演唱节奏</li><li>与伴奏混合，对比并导出</li></ol><p class="help">每个阶段完成后释放模型，再开始下一阶段。原文件与历史作品保留。</p></div></aside></div>
+      <section id="voice-comparison" class="cover-card cover-comparison" hidden><div class="section-top"><span class="section-title">音色替换前 / 后</span><span id="voice-comparison-title" class="muted small"></span></div><div class="compare-grid"><label>原歌曲片段<audio id="voice-original" controls preload="metadata"></audio></label><label>替换音色后的混音<audio id="voice-output" controls preload="metadata"></audio></label></div><label class="field-label">单独试听转换人声<audio id="voice-vocal-preview" controls preload="metadata"></audio></label><div class="cover-inline-actions"><button id="voice-export-mix" class="button secondary small">导出混音 WAV</button><button id="voice-export-vocal" class="text-button">导出替换后人声</button><button id="voice-export-instrumental" class="text-button">导出伴奏</button></div></section>
+      <div class="queue-section"><div class="section-top"><span class="section-title">音色 Cover 任务</span><span class="muted small">与音乐生成共用单显卡队列</span></div><div id="voice-history"></div></div>
+    </section>
+
+    <section id="page-create" class="page">
+      <div class="page-heading"><div><div class="eyebrow">FROM WORDS TO MUSIC</div><h1>让灵感，有声<span>。</span></h1><p>写下歌词，定义风格。下一首歌，从这里开始。</p></div><div class="heading-art" aria-hidden="true"><span>♪</span><div class="orbit"></div><div class="orbit second"></div><b>48 <small>kHz</small></b></div></div>
+      <div id="setup-banner" class="notice"><i data-icon="box"></i><div><strong>准备好你的本地音乐引擎</strong><span id="setup-message">首次使用需要安装独立运行环境并下载模型。</span></div><button id="goto-setup" class="button secondary">开始准备 <span>↗</span></button></div>
+      <div class="assistant-launch"><div><strong>用一句话，开始写一首歌</strong><p>DeepSeek + YuE 官方 Skill · 歌词、风格、配器与演唱建议</p></div><button class="button secondary" data-assistant-open="create">辅助创作 ↗</button></div>
+      <div class="studio-grid">
+        <div class="composer">
+          <div class="section-top"><span class="section-title"><i data-icon="edit"></i>创作台</span><span id="draft-status" class="muted small">草稿自动保存</span></div>
+          <label class="field-label" for="song-title">作品名称<span>给这次灵感取个名字</span></label>
+          <input id="song-title" maxlength="100" placeholder="未命名的灵感">
+          <div class="label-row"><label class="field-label" for="song-style">音乐风格</label><span class="muted small">语言 / 曲风 / 乐器 / 人声 / 节奏</span></div>
+          <textarea id="song-style" rows="3" maxlength="2000" placeholder="例如：Mandarin indie pop, warm female vocal, soft piano, dreamy synths, slow tempo"></textarea>
+          <div class="style-chips" aria-label="风格预设"><button data-style="Mandarin indie pop, warm female vocal, soft piano, dreamy synths, slow tempo">独立流行</button><button data-style="Mandarin acoustic folk, intimate male vocal, fingerpicked guitar, warm strings, gentle tempo">温暖民谣</button><button data-style="English jazz, soulful female vocal, Rhodes piano, upright bass, brushed drums, laid-back">慵懒爵士</button><button data-style="Mandarin synthwave, airy female vocal, analog synth, driving bass, electronic drums">复古电子</button></div>
+          <div class="label-row lyrics-label"><label class="field-label" for="song-lyrics">歌词<span id="lyrics-count">0 字符</span></label><div><button id="sample-lyrics" class="text-button">载入示例</button><button id="import-lyrics" class="text-button"><i data-icon="upload"></i>导入 TXT</button></div></div>
+          <div class="lyrics-editor"><div class="editor-gutter" aria-hidden="true">01<br>02<br>03<br>04<br>05<br>06<br>07<br>08<br>09<br>10<br>11<br>12</div><textarea id="song-lyrics" maxlength="12000" spellcheck="false" placeholder="[Verse]\n把今天没有说完的话\n写成一首歌\n\n[Chorus]\n让旋律替你说出口……"></textarea></div>
+          <div class="editor-footer"><span><span class="small-dot"></span>使用 [Verse]、[Chorus] 标注段落</span><button id="add-section" class="text-button">＋ 添加段落</button></div>
+          <details id="score-details"><summary><span><i data-icon="music"></i>使用自己的 ABC 乐谱</span><span class="muted">可选 ＋</span></summary><p class="help">导入 YuE2 兼容的 ABC 文本，可保留旋律或调整和弦。翻唱请使用旋律模式与不含和弦的乐谱。</p><button id="import-score" class="button secondary small">导入 ABC</button><textarea id="song-abc" rows="6" maxlength="40000" spellcheck="false" placeholder="粘贴或导入 ABC 乐谱"></textarea></details>
+        </div>
+        <aside class="settings-column">
+          <div class="settings-card"><div class="section-top"><span class="section-title"><i data-icon="sliders"></i>生成设置</span></div>
+            <label class="field-label">作曲模式</label><div class="mode-selector" role="group" aria-label="作曲模式"><button class="selected" data-cot="full">完整作曲</button><button data-cot="melody">旋律</button><button data-cot="off">直接生成</button></div><p id="mode-hint" class="help">先谱写旋律与和弦，再生成人声和伴奏。</p>
+            <label class="field-label" for="profile">运行预设</label><select id="profile"><option value="low-memory">16GB 实验模式 · 分阶段卸载</option><option value="balanced">24GB 标准模式</option></select><p class="help">Windows 为实验适配。16GB 模式可能仍会耗尽显存，建议先尝试短段歌词。</p>
+            <label class="field-label" for="max-tokens">音频 token 上限</label><select id="max-tokens"><option value="750">750 · 短段试作</option><option value="1500">1500 · 中等长度</option><option value="3000" selected>3000 · 较长片段</option><option value="9000">9000 · 上游默认上限</option></select><p class="help">这是生成上限，实际时长由模型决定。达到上限时会提示可能截断。</p>
+            <div class="label-row"><label class="field-label" for="seed">随机种子</label><button id="random-seed" class="text-button">随机 ↻</button></div><input id="seed" type="number" value="42" min="0" max="9007199254740991" step="1"><p class="help">相同输入与种子用于复现；环境差异可能影响结果。</p>
+            <div class="format-row"><span>输出格式</span><strong>FLAC / WAV <b>48kHz</b></strong></div>
+            <button id="generate" class="button primary generate" disabled><i data-icon="spark"></i><span>生成音乐</span><kbd>Ctrl ↵</kbd></button><p id="generate-hint" class="generate-hint">先完成模型与环境准备</p>
+          </div>
+          <div class="hardware-card"><div class="label-row"><span class="section-title small">本地运行状态</span><span id="hardware-badge" class="status-pill warning">检测中</span></div><strong id="gpu-name">正在检测显卡</strong><div class="hardware-stats"><span><b id="gpu-memory">—</b>显存</span><span><b id="ram-memory">—</b>系统内存</span><span><b id="disk-space">—</b>可用磁盘</span></div><p class="help">官方基线：Linux · BF16 NVIDIA GPU · 24GB 显存</p></div>
+        </aside>
+      </div>
+      <div class="queue-section"><div class="section-top"><span class="section-title"><i data-icon="queue"></i>生成队列 <span id="queue-count" class="count">0</span></span><span class="muted small">单任务推理 · 自动排队</span></div><div id="queue-list"></div></div>
+    </section>
+
+    <section id="page-library" class="page" hidden><div class="page-heading compact"><div><div class="eyebrow">YOUR LOCAL COLLECTION</div><h1>每个灵感，都有回响。</h1><p>音频、乐谱与生成参数，完整保存在本机。</p></div></div><div class="library-toolbar"><input id="search-songs" type="search" placeholder="搜索作品名称或音乐风格" aria-label="搜索作品"><select id="filter-songs" aria-label="筛选作品"><option value="all">全部任务</option><option value="completed">已完成</option><option value="failed">失败 / 中断</option></select></div><div id="library-list" class="library-list"></div></section>
+
+    <section id="page-models" class="page" hidden><div class="page-heading compact"><div><div class="eyebrow">YOUR MACHINE. YOUR STUDIO.</div><h1>把音乐引擎，放进本机。</h1><p>首次联网安装，准备完成后可离线生成。所有下载存放在数据目录。</p></div></div>
+      <div class="environment-grid"><div class="model-panel"><div class="section-top"><span class="section-title">01 / 独立运行环境</span><span id="runtime-badge" class="status-pill">未安装</span></div><h2>Python + CUDA + YuE2</h2><p>内置安装器自动准备 Python 3.12.9、PyTorch 2.10 / CUDA 12.8 和 YuE2 依赖，无需手动配置命令行。</p><div class="spec-tags"><span>独立环境</span><span>支持 RTX 50 系列</span><span>不依赖系统 Python</span></div><button id="install-runtime" class="button secondary">安装 / 修复环境</button><button id="diagnose" class="text-button">运行诊断 ↗</button><pre id="diagnostics" class="diagnostics">尚未运行诊断</pre></div>
+      <div class="model-panel"><div class="section-top"><span class="section-title">02 / 音乐生成模型</span><span id="models-badge" class="status-pill">未下载</span></div><div id="model-cards"></div><p class="help">模型固定到具体版本，下载后校验完整性。重新点击下载会复用已完成的文件。</p><button id="download-models" class="button secondary">下载 / 校验模型</button></div></div>
+      <div class="model-panel cover-model-panel"><div class="section-top"><span class="section-title">03 / Cover 音频转谱</span><span id="cover-model-badge" class="status-pill">未准备</span></div><div id="cover-model-cards"></div><p class="help">SheetSage2 + MERT-v2-FullSong · 模型约 2.6GB · 独立 Python 3.11 和 CUDA 环境</p><button id="models-install-cover" class="button secondary">准备 / 校验 Cover</button></div>
+      <div class="model-panel cover-model-panel"><div class="section-top"><span class="section-title">04 / 歌声音色替换</span><span id="voice-model-badge" class="status-pill">未准备</span></div><div id="voice-model-cards"></div><p class="help">Seed-VC 歌声转换 + Demucs 人声分离 · 独立运行环境 · 单显卡依次运行</p><button id="models-install-voice" class="button secondary">准备 / 校验音色替换</button></div>
+      <div class="label-row"><label for="download-source" class="field-label">模型下载源</label><select id="download-source"><option value="official">Hugging Face 官方</option><option value="mirror">hf-mirror.com · 公开模型镜像</option></select></div>
+      <div class="setup-action"><div><strong>一键准备，开始创作</strong><p>安装音乐生成环境与模型。完整 Cover 整合包建议预留至少 60GB 磁盘空间。</p></div><button id="install-all" class="button primary"><i data-icon="download"></i>准备音乐生成</button><button id="cancel-install" class="button danger" hidden>取消当前操作</button></div>
+      <div class="license-note"><i data-icon="info"></i><p>YuE2 模型采用 <button id="license-link" class="inline-link">CC BY-NC 4.0</button>，仅限非商业用途；上游代码采用 Apache 2.0。Windows 与 16GB 显存属于本应用的实验运行方案，效果和稳定性需要实际生成验证。</p></div>
+      <div class="path-card"><span>数据目录</span><code id="data-path">—</code><button id="models-open-data" class="text-button">打开目录 ↗</button></div>
+      <div class="log-panel"><div class="section-top"><span class="section-title"><span id="operation-dot" class="small-dot"></span><span id="operation-stage">运行日志</span></span><span class="muted small">实际进度 · 支持取消</span></div><pre id="logs" aria-live="polite">准备就绪，等待操作。</pre></div>
+    </section>
+    <section id="page-assistant" class="page" hidden>
+      <div class="page-heading compact"><div><div class="eyebrow">FROM AN IDEA TO A SONG</div><h1>一起，把灵感写成歌<span>。</span></h1><p>DeepSeek 官方模型，结合 YuE 官方创作指南。先形成方案，再应用到你的作品。</p></div><span id="assistant-ready" class="status-pill">检查配置</span></div>
+      <div class="assistant-grid"><div>
+        <section class="assistant-card"><div class="section-top"><span class="section-title">这次想怎么创作</span></div>
+          <label class="field-label" for="assistant-mode">用于</label><select id="assistant-mode"><option value="create">音乐创作</option><option value="cover">歌曲 Cover</option></select>
+          <label class="field-label" for="assistant-task">创作任务</label><select id="assistant-task"><option value="compose">完整创作方案</option><option value="lyrics">写词 / 改词 · 保留已有风格</option><option value="style">曲风与编曲 · 保留歌词</option><option value="review">检查歌词与 Cover 可唱性</option></select>
+          <div id="assistant-context" class="assistant-context">可从创作台或歌曲 Cover 进入，带入当前歌词、风格与乐谱。</div><button id="assistant-read-context" class="text-button">重新读取当前表单 ↻</button>
+          <label class="field-label" for="assistant-brief">告诉我你的想法</label><textarea id="assistant-brief" rows="5" maxlength="6000" placeholder="例如：写一首关于离乡后重逢的中文民谣，温暖低男声，主歌克制，副歌有记忆点。"></textarea>
+          <div class="style-chips"><button data-assistant-brief="围绕‘离乡后重逢’写一首中文民谣，温暖低男声。给出主歌、副歌、桥段和配器建议。">从主题写歌</button><button data-assistant-brief="结合当前歌词和旋律谱，把歌词改成温暖的重逢主题，保留段落顺序，关注句长、重音、拖腔与换气。">保留旋律换词</button><button data-assistant-brief="把当前歌曲改编成原声爵士，保留歌词，给出英文风格描述、配器和演唱建议。">设计风格改编</button></div>
+          <div class="assistant-actions"><button id="assistant-generate" class="button primary">生成创作方案</button><button id="assistant-cancel" class="button danger" hidden>停止请求</button></div>
+          <p id="assistant-progress" class="assistant-status" role="status" aria-live="polite"></p>
+          <p class="help">联网请求发送创作要求、当前歌词、风格与 ABC 文字；不上传歌曲或声音文件。API 用量由你的 DeepSeek 账户计费，音频生成继续在本机执行。</p>
+        </section>
+        <section class="assistant-card"><div class="section-top"><span class="section-title">DeepSeek 官方 API</span><button id="assistant-doc-link" class="text-button">接口说明 ↗</button></div>
+          <label class="field-label" for="assistant-model">模型</label><select id="assistant-model"><option value="deepseek-flash">DeepSeek Flash</option><option value="deepseek-v4-pro">DeepSeek V4 Pro</option></select>
+          <label class="assistant-check"><input id="assistant-thinking" type="checkbox">深度思考 · 更适合复杂改编，等待时间更长</label>
+          <p id="assistant-output-policy" class="help">输出额度采用 DeepSeek 官方最大值 384K tokens，按实际输出结束。深度思考与普通模式均不另设较低上限；收到数据期间持续等待，可随时停止。</p>
+          <label class="field-label" for="assistant-key">API Key</label><input id="assistant-key" type="password" autocomplete="off" spellcheck="false" maxlength="256" placeholder="填写 DeepSeek 官方 API Key">
+          <p id="assistant-key-status" class="help">尚未配置</p><p class="help">密钥使用 Windows 本机加密保存，不写入作品或整合包。也支持 DEEPSEEK_API_KEY 环境变量；更换电脑或移动数据目录后需重新配置。</p>
+          <div class="assistant-actions"><button id="assistant-save-settings" class="button secondary">保存设置</button><button id="assistant-test" class="text-button">测试连接</button><button id="assistant-remove-key" class="text-button">移除保存的密钥</button><button id="assistant-key-link" class="text-button">获取 API Key ↗</button></div>
+        </section>
+        <section class="assistant-card"><div class="section-top"><span class="section-title">YuE 官方音乐 Skill</span></div><p id="assistant-skill-status" class="help">检查官方指南</p><p class="help">按创作或 Cover 任务加载对应指南，辅助歌词可唱性、曲风、旋律条件和试听检查。乐谱继续沿用当前表单。</p><button id="assistant-skill-read" class="text-button">阅读已安装 Skill</button><details id="assistant-skill-details"><summary>官方 Skill 原文</summary><pre id="assistant-skill-text"></pre></details></section>
+      </div><div>
+        <div id="assistant-empty"><strong>先有想法，再有旋律。</strong><p>描述主题、情绪、声音与曲风。生成后，你可以继续修改方案，也可以只采用歌词或风格。</p></div>
+        <section id="assistant-result" class="assistant-card" hidden><div class="section-top"><span class="section-title">可编辑的创作方案</span></div><p id="assistant-result-info" class="help"></p>
+          <label class="field-label" for="assistant-title">作品名称</label><input id="assistant-title" maxlength="100">
+          <label class="field-label" for="assistant-style">音乐风格</label><textarea id="assistant-style" rows="3" maxlength="2000"></textarea>
+          <label class="field-label" for="assistant-lyrics">歌词</label><textarea id="assistant-lyrics" rows="14" maxlength="12000"></textarea>
+          <div id="assistant-notes"></div>
+          <div class="assistant-actions"><label class="assistant-check"><input id="assistant-use-title" type="checkbox" checked>采用名称</label><label class="assistant-check"><input id="assistant-use-style" type="checkbox" checked>采用风格</label><label class="assistant-check"><input id="assistant-use-lyrics" type="checkbox" checked>采用歌词</label></div>
+          <p id="assistant-conflict" class="assistant-status error" hidden>当前表单已变化，与方案的原始内容不一致。请重新读取表单，再生成方案。</p>
+          <div class="assistant-actions"><button id="assistant-apply" class="button primary">应用到创作表单</button><button id="assistant-continue" class="button secondary">按这版继续修改</button></div><p class="help">先在左侧写修改要求，再继续修改。应用后可检查歌词与风格，并从创作表单开始生成音频。</p>
+        </section>
+        <section class="assistant-card"><div class="section-top"><span class="section-title">本机方案记录</span></div><div id="assistant-history" class="help"></div></section>
+      </div></div>
+    </section>
+    <footer><span>创作发生在这里，灵感属于你。</span><span>POWERED BY YuE2 <span class="footer-dot">•</span> 本地模型 · 非商业用途</span></footer>
+  </main>
+  <div id="player" class="player" hidden><div class="player-art" aria-hidden="true">♫</div><div class="player-info"><strong id="player-title"></strong><span id="player-detail">48kHz · 立体声</span></div><audio id="audio" controls preload="metadata"></audio><button id="player-export" class="button secondary small">导出 WAV</button><button id="player-close" class="icon-button" aria-label="关闭播放器">×</button></div>
+  <div id="toast" class="toast" role="status" hidden></div>
+  <link rel="stylesheet" href="timbre-cover.css">
+  <link rel="stylesheet" href="field-workspace.css">
+  <link rel="stylesheet" href="studio-shell.css">
+  <link rel="stylesheet" href="cover-layout.css">
+  <link rel="stylesheet" href="theme-colors.css">
+  <link rel="stylesheet" href="confirm-dialog.css">
+  <link rel="stylesheet" href="generated-score.css">
+  <script src="workbench-layout.js"></script>
+  <script src="shell-layout.js"></script>
+  <script src="vendor/abcjs-6.7.0.min.js"></script>
+  <script src="score-model.js"></script>
+  <script src="vendor/pinyin-pro-3.29.4.js"></script>
+  <script src="pronunciation.js"></script>
+  <script src="pronunciation-ui.js"></script>
+  <script src="lyric-plan.js"></script>
+  <script src="theme-palette.js"></script>
+  <script src="confirm-dialog.js"></script>
+  <script src="app.js"></script>
+  <link rel="stylesheet" href="gpu-settings.css">
+  <script src="gpu-settings.js"></script>
+  <script src="cover-ui.js"></script>
+  <script src="voice-ui.js"></script>
+  <script src="cover-waveform.js"></script>
+  <script src="workbench-ui.js"></script>
+  <script src="lyrics-ui.js"></script>
+  <script src="inline-ai.js"></script>
+  <script src="timbre-cover.js"></script>
+  <script src="cover-modes.js"></script>
+<script src="music-style-ui.js"></script>
+  <script src="studio-shell.js"></script>
+  <script src="voice-regions.js"></script>
+  <script src="cover-layout.js"></script>
+  <script src="score-timing.js"></script>
+  <script src="generated-score.js"></script>
+  <link rel="stylesheet" href="player-lyrics.css">
+  <script src="player-lyrics.js"></script>
+  <script src="environment-summary.js"></script>
+</body>
+</html>

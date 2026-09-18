@@ -1,0 +1,55 @@
+{
+  "models": [
+    {
+      "repo": "Qwen/Qwen3-ForcedAligner-0.6B-hf",
+      "sizes": [
+        {
+          "gitBlob": "21455f653fd7f7963ee042f2dcb2709530bc6d71",
+          "name": "README.md",
+          "bytes": 9419
+        },
+        {
+          "gitBlob": "1d6020e0ee6f66499d674a3fc2bbae5a99482c0e",
+          "name": "chat_template.jinja",
+          "bytes": 551
+        },
+        {
+          "gitBlob": "74b91ca23584bdebd82ffaaeb21f72444baa2dd8",
+          "name": "config.json",
+          "bytes": 248029
+        },
+        {
+          "name": "model.safetensors",
+          "sha256": "00568245ceca5af1991d28562a75fe1ddc9bfeb041c27fda66947ea05c47fb86",
+          "bytes": 1835545960
+        },
+        {
+          "gitBlob": "a07dff48032bed341260501d6688036c6fd7f3ef",
+          "name": "processor_config.json",
+          "bytes": 487
+        },
+        {
+          "name": "tokenizer.json",
+          "sha256": "cadfb9cbd9ff8f4e309075ec6a71b063295ff796afb4b5dbc0fd2873fbb301f2",
+          "bytes": 11429842
+        },
+        {
+          "gitBlob": "aa62b6c06ab8a704dc0895420fb1d2515954a49c",
+          "name": "tokenizer_config.json",
+          "bytes": 998
+        }
+      ],
+      "name": "Qwen3-ForcedAligner-0.6B",
+      "files": [
+        "README.md",
+        "chat_template.jinja",
+        "config.json",
+        "model.safetensors",
+        "processor_config.json",
+        "tokenizer.json",
+        "tokenizer_config.json"
+      ],
+      "revision": "c07281df297b9905d24a508279258cccf987a064"
+    }
+  ]
+}

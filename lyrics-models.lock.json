@@ -1,0 +1,61 @@
+{
+  "models": [
+    {
+      "name": "Qwen3-ASR-1.7B",
+      "repo": "Qwen/Qwen3-ASR-1.7B-hf",
+      "revision": "bcd2b5b7f32b480ab5790554cfa8347f246a14f3",
+      "files": [
+        "README.md",
+        "chat_template.jinja",
+        "config.json",
+        "generation_config.json",
+        "model.safetensors",
+        "processor_config.json",
+        "tokenizer.json",
+        "tokenizer_config.json"
+      ],
+      "sizes": [
+        {
+          "name": "README.md",
+          "bytes": 16538,
+          "gitBlob": "e5bb005ab9a6445c7b1a91c6b250855f5d8e4bbd"
+        },
+        {
+          "name": "chat_template.jinja",
+          "bytes": 1434,
+          "gitBlob": "491fff331513a97316daf53591c7b9b9da53ef8c"
+        },
+        {
+          "name": "config.json",
+          "bytes": 2399,
+          "gitBlob": "331292992b1933c69fc83d77f0de560ab122a0d5"
+        },
+        {
+          "name": "generation_config.json",
+          "bytes": 165,
+          "gitBlob": "3ed98c80087572bad932a83279c5602e58bbfc5c"
+        },
+        {
+          "name": "model.safetensors",
+          "bytes": 4076193080,
+          "sha256": "2db53c7d81bd9b8cbc6a074e89be2c968a0d373fb4ee68bb1b1e14f7042dfee1"
+        },
+        {
+          "name": "processor_config.json",
+          "bytes": 487,
+          "gitBlob": "a07dff48032bed341260501d6688036c6fd7f3ef"
+        },
+        {
+          "name": "tokenizer.json",
+          "bytes": 11429653,
+          "sha256": "fe1fad59be22a41ee293363fcf95fdedbc7c93f3b49270b1d2e18bd1399a7a05"
+        },
+        {
+          "name": "tokenizer_config.json",
+          "bytes": 998,
+          "gitBlob": "aa62b6c06ab8a704dc0895420fb1d2515954a49c"
+        }
+      ]
+    }
+  ]
+}

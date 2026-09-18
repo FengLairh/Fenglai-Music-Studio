@@ -1,0 +1,41 @@
+/* Semantic UI colors. Notation paper and theme-preview swatches intentionally
+   have their own palettes; interactive UI always follows the selected theme. */
+:root{
+ --panel:var(--surface);--panel2:var(--surface-raised);--amber:var(--warning-text);
+ --accent-text:#d4edaa;--accent-line:#d4edaa;--accent-control:#d4edaa;
+ --warning-bg:#332a1e;--warning-line:#826638;--warning-text:#f1ca83;
+ --danger-bg:#38242d;--danger-line:#b36b78;--danger-text:#ffb5bd;
+ --scrollbar:#68717d;--paper:#f9faf9;--paper-ink:#20282e;--paper-muted:#566273;
+ --score-accent:#496726;--score-playing:#945010;
+ --paper-edit:color-mix(in srgb,var(--score-accent) 10%,var(--paper));
+}
+:root[data-theme=light]{
+ --muted:#566275;
+ --warning-bg:#fff4df;--warning-line:#ba873b;--warning-text:#825318;
+ --danger-bg:#fff0f2;--danger-line:#d47b8a;--danger-text:#aa263e;--scrollbar:#939eac;
+}
+/* Icons are masks so their ink is exactly their control's currentColor. */
+i[data-icon]{background-color:currentColor;mask-image:var(--icon-url);mask-repeat:no-repeat;mask-position:center;mask-size:contain}
+i[data-icon] img{visibility:hidden;filter:none}
+.status-pill{color:var(--muted);border-color:var(--line)}
+.job-text .job-error{color:var(--danger-text)}
+.lyric-fit{color:var(--accent-text)}
+.lyric-fit p,.cover-task p{color:inherit}
+.lyric-fit.has-conflict,.lyric-fit.has-conflict summary{color:var(--warning-text)}
+.field-ai-slot>.inline-ai{background:var(--accent-soft);color:var(--text)}
+.score-source-view textarea,.score-pane>.lyrics-pane .lyric-field textarea{color:var(--text);background:var(--input)}
+.settings-section .settings-card,.settings-section .cover-card{background:var(--surface)}
+.on-score-lyric,.on-score-lyric:focus{background:var(--paper-edit);color:var(--paper-ink);border-color:var(--score-accent)}
+.score-empty{color:var(--paper-ink)}
+.score-empty .secondary{background:#e5e9ed;color:var(--paper-ink);border-color:#acb7c3}
+.wave-play{color:var(--on-accent)}
+.wave-precision .clip-fields{background:var(--surface-raised);border-color:var(--line)}
+button,.timbre-presets button{transition:border-color .15s,filter .15s}
+.wave-play:focus-visible,.wave-handle:focus-visible{outline-color:var(--on-accent)}
+#cover-wave-playhead,#cover-wave-playhead span{background:var(--text)}
+#cover-wave-playhead{box-shadow:0 0 4px var(--input)}
+.wave-handle:hover,.wave-handle:focus-visible{background:var(--accent-control);color:var(--on-control)}
+.region-handle{background:var(--accent-control);color:var(--on-control)}
+input[type=range],input[type=checkbox]{accent-color:var(--accent-control)}
+::selection{background:var(--accent);color:var(--on-accent)}
+@media print{.score-paper .selected-note,.score-paper .playing-note{fill:var(--paper-ink)!important;stroke:var(--paper-ink)!important}}

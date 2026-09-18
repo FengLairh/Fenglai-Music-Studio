@@ -1,0 +1,49 @@
+/* A single, full-width editing surface shared by both workbenches. */
+.creative-brief{display:grid;grid-template-columns:minmax(240px,.8fr) minmax(340px,1.5fr);gap:12px;align-items:start;margin-bottom:12px}
+.workbench-theme,.workbench-style.field-composer{display:block;border:1px solid var(--line);border-radius:8px;background:var(--panel);padding:12px 14px;margin:0;min-width:0}
+.workbench-theme>.field-label,.field-heading{display:flex;align-items:center;justify-content:space-between;gap:12px;margin:0 0 9px;min-height:29px}
+.workbench-theme>.field-label{font-size:13px;font-weight:600}.workbench-theme .field-label span{font-size:10px;font-weight:400;color:var(--muted)}
+.field-heading>.field-label{margin:0;font-size:13px;font-weight:600}.field-heading>.button{min-height:28px;font-size:11px;padding:5px 11px;color:var(--accent-text);border-color:var(--accent-line)}
+.workbench-theme textarea,.workbench-style.field-composer textarea{height:60px;min-height:60px;resize:vertical;font-size:12px;line-height:1.7;padding:9px 11px}
+.workbench-grid{grid-template-columns:minmax(0,1fr);gap:0;min-height:340px}.score-pane{overflow:visible;min-width:0}
+.score-tabs{border-radius:8px 8px 0 0}.score-tabs .tab-group{gap:12px}.score-tabs .tab-group button{font-size:13px}
+.score-pane>.score-transport{padding:7px 12px;border-top:0;border-bottom:1px solid var(--line);min-height:43px}
+.score-pane>.score-structure{border-radius:0 0 8px 8px}.score-edit-help{font-size:10px;padding:5px 12px}
+.note-inspector.note-inline{display:flex;align-items:center;gap:14px;padding:8px 12px;border:0;border-radius:0;border-bottom:1px solid var(--line);overflow:visible;flex-shrink:0;min-height:49px}
+.note-inline>.pane-title{margin:0;gap:10px}.note-inline>.pane-title strong{display:none}.note-inline>.pane-title>div{display:flex;gap:4px}
+.note-inline [data-note-position]{font-size:10px;margin:0;min-width:128px}.note-inline .note-pitch-grid{display:flex;gap:12px;flex-shrink:0}
+.note-inline .note-pitch-grid>div,.note-inline .note-lyric-field{display:flex;align-items:center;gap:7px}
+.note-inline .field-label,.note-inline .note-pitch-grid .field-label{white-space:nowrap;font-size:10px;margin:0;color:var(--muted)}.note-inline .field-label span{display:none}
+.note-inline select,.note-inline input{height:29px;font-size:11px;padding:4px 7px}.note-inline [data-note-pitch]{width:76px}.note-inline [data-note-duration]{width:112px}.note-inline [data-note-lyric]{width:128px}
+.note-inline .chord-details,.note-inline .note-alignment{position:relative;margin:0;flex-shrink:0;font-size:10px}.note-inline .chord-details{margin-left:auto}
+.note-inline details>summary{cursor:pointer;white-space:nowrap;color:var(--muted);padding:6px 0}.note-inline details[open]>summary{color:var(--accent-text)}
+.note-inline .chord-details input,.note-inline .alignment-summary{position:absolute;z-index:8;right:0;top:25px;width:220px;min-height:35px;margin:0;padding:12px;border:1px solid var(--accent-line);background:var(--accent-soft);border-radius:6px;box-shadow:0 8px 24px #0006}
+.note-inline .alignment-summary{font-size:11px;line-height:1.6}.note-inline>.help:last-of-type{display:none}
+.score-pane>.lyrics-pane.composer{flex:1;height:auto;min-height:0!important;border:0;border-radius:0;padding:16px 22px;overflow:auto;gap:8px}
+.score-pane>.lyrics-pane .pane-title{margin:0}.score-pane>.lyrics-pane .lyric-field{flex:1;min-height:150px!important}.score-pane>.lyrics-pane .lyric-field textarea{height:100%;min-height:150px!important;line-height:2;resize:none;background:var(--input);border:1px solid var(--line);border-radius:6px;padding:14px 18px;max-width:none}
+.score-pane>.lyrics-pane .lyrics-section-nav{margin:0}.score-pane>.lyrics-pane .lyrics-tools{padding:6px 0;flex-shrink:0}.score-pane>.lyrics-pane .lyrics-tools #lyrics-count{width:auto;margin-right:12px}
+.score-pane>.lyrics-pane>.help{margin:0}.score-pane>.lyrics-pane .lyric-fit{flex-shrink:0;margin:0}.score-pane>.lyrics-pane .lyrics-recognition{flex-shrink:0}
+.score-pane[data-active-tab="lyrics"]>.score-toolbar,.score-pane[data-active-tab="lyrics"]>.note-inline,.score-pane[data-active-tab="lyrics"]>.score-edit-help,.score-pane[data-active-tab="lyrics"]>.score-structure,
+.score-pane[data-active-tab="abc"]>.score-toolbar,.score-pane[data-active-tab="abc"]>.note-inline,.score-pane[data-active-tab="abc"]>.score-edit-help,.score-pane[data-active-tab="abc"]>.score-structure{display:none}
+.score-source-view textarea{height:100%;min-height:280px}.score-source-view details{height:100%}
+.field-ai-slot:empty{display:none}.score-pane>.field-ai-slot{flex-shrink:0;max-height:240px;overflow:auto}
+.field-ai-slot>.inline-ai{margin:10px 0 0;padding:10px 12px;background:var(--accent-soft);border-color:var(--accent-line);border-radius:6px}
+.score-pane>.field-ai-slot>.inline-ai{margin:0;border:0;border-bottom:1px solid var(--accent-line);border-radius:0}
+.field-ai-slot .inline-ai>.pane-title{display:none}.field-ai-slot .inline-ai [data-ai-brief]{height:50px;min-height:42px;resize:vertical;font-size:12px}
+.field-ai-slot .inline-ai [data-ai-context]{display:block;margin:0 0 6px;font-size:11px;white-space:pre-line}.field-ai-slot .inline-ai .ai-request-row{margin-top:7px}
+.field-ai-slot .inline-ai [data-ai-status]{max-height:60px;margin:5px 0;font-size:11px}.field-ai-slot .inline-ai [data-ai-result]:not([hidden]){display:block;min-height:0}
+.field-ai-slot .inline-ai [data-ai-notes]{display:block;max-height:90px;margin:6px 0;font-size:11px}.field-ai-slot .inline-ai [data-ai-apply]{width:auto;min-height:26px;padding:4px 10px}
+.field-ai-slot .inline-ai>details{margin:5px 0 0}.field-ai-slot .inline-ai>.ai-disclosure{margin:5px 0 0;font-size:9px}
+.ai-field-filled{outline:1px solid var(--accent-line)!important;outline-offset:-1px}.ai-undo{color:var(--accent-text)!important}
+.note-inline details,.score-transport .export-menu,.field-ai-slot .inline-ai>details{border:0;padding:0}
+.score-pane>.lyrics-pane .lyric-fit:not(.has-conflict){background:var(--accent-soft);border-color:var(--accent-line);color:var(--accent-text)}.score-pane>.lyrics-pane .lyric-fit:not(.has-conflict) summary{color:var(--accent-text)}
+.export-menu{z-index:9}.export-menu[open]{position:relative}.export-menu button{background:var(--surface-raised)}.export-menu[open]>button{position:absolute;right:0;border:1px solid var(--line)}.export-menu[open]>button:nth-of-type(1){top:32px}.export-menu[open]>button:nth-of-type(2){top:65px}.export-menu[open]>button:nth-of-type(3){top:98px}.export-menu[open]>button:nth-of-type(4){top:131px}
+#page-cover.timbre-mode>.creative-brief{display:none}
+@media(max-width:1300px){.note-inline{gap:8px!important}.note-inline [data-note-position]{min-width:96px;font-size:9px}.note-inline .note-pitch-grid{gap:7px}.note-inline [data-note-lyric]{width:95px}.note-inline .note-alignment{display:none}.note-inline .note-pitch-grid>div,.note-inline .note-lyric-field{gap:5px}}
+@media(max-width:1050px){.creative-brief{grid-template-columns:1fr}.workbench-theme textarea{height:48px;min-height:48px}.note-inspector.note-inline{flex-wrap:wrap}.workbench-theme>.field-label{min-height:18px}.score-tabs .tab-group{gap:0}}
+.creative-brief{display:block}.workbench-theme{display:flex;align-items:center;gap:20px;padding:10px 14px}.workbench-theme>.field-label{display:flex;flex-direction:column;align-items:flex-start;gap:4px;min-width:120px;margin:0}.workbench-theme textarea{flex:1;height:46px;min-height:46px;resize:vertical}
+.score-pane>.workbench-style.field-composer{flex:1;min-height:0;padding:18px 22px;border:0;border-radius:0;overflow:auto}.score-pane>.workbench-style textarea{height:150px;min-height:80px;line-height:1.8;font-size:14px}.score-pane>.workbench-style .field-ai-slot textarea{height:60px;min-height:42px;font-size:12px}
+.score-pane[data-active-tab="style"]>.score-toolbar,.score-pane[data-active-tab="style"]>.note-inline,.score-pane[data-active-tab="style"]>.score-edit-help,.score-pane[data-active-tab="style"]>.score-structure{display:none}
+.score-pane .score-paper{padding-top:6px}
+.score-transport .export-menu[open]{bottom:auto;right:auto;padding:0;display:block;position:relative}.score-transport .export-menu[open] summary{border-top:0}
+@media print{.score-pane{height:auto!important}.workbench-grid{height:auto!important}.score-pane>.score-scroll{flex:none!important}.score-pane>.lyrics-pane,.score-pane>.workbench-style{display:none!important}}

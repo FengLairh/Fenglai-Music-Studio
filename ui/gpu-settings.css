@@ -1,0 +1,12 @@
+.gpu-settings{border-top:1px solid var(--line);margin-top:18px;padding-top:16px}
+.gpu-settings-heading{display:flex;justify-content:space-between;align-items:center;gap:16px;margin-bottom:12px}
+.gpu-settings-heading>strong,.gpu-selection label{font-size:13px}
+.gpu-devices{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:12px}
+.gpu-device{position:relative;padding:15px;border:1px solid var(--line);border-radius:8px;background:var(--panel);color:var(--text)}
+.gpu-device.selected{border-color:var(--accent-line);background:var(--accent-soft)}
+.gpu-device>strong{display:block;font-size:13px;overflow-wrap:anywhere;margin-bottom:8px}
+.gpu-device>p{font-size:11px;color:var(--muted);white-space:pre-line;line-height:1.8;margin-bottom:10px}
+.gpu-selection{display:flex;gap:12px;align-items:center;flex-wrap:wrap;margin:18px 0 8px}
+.gpu-selection select{flex:1;min-width:220px;width:auto;max-width:620px}
+.gpu-selection .button{flex-shrink:0}
+.gpu-settings #gpu-selection-help,.gpu-settings #gpu-selection-status{font-size:11px;margin-top:8px}

@@ -1,0 +1,83 @@
+{
+  "name": "yue2-music",
+  "repository": "https://github.com/multimodal-art-projection/YuE",
+  "revision": "0edaf2f4053ef4731334b8329834b107977f9637",
+  "license": "Apache-2.0",
+  "files": [
+    {
+      "path": "LICENSE",
+      "sha256": "cfc7749b96f63bd31c3c42b5c471bf756814053e847c10f3eb003417bc523d30",
+      "bytes": 11358
+    },
+    {
+      "path": "SKILL.md",
+      "sha256": "d7c010ee8bc6b4338fc53cdc363d2e478ced446a8ff9c6a20346bac5525dfdf9",
+      "bytes": 8496
+    },
+    {
+      "path": "agents/openai.yaml",
+      "sha256": "f6565efe55a5ec0aa1a489e74aa90f894ad3fc35a38d1c837977ee26b3bc1fc9",
+      "bytes": 222
+    },
+    {
+      "path": "assets/edit-brief.md",
+      "sha256": "dd113d95276e302c410275228a946dfaa5d4d3afd0d32eee0d647965f188355a",
+      "bytes": 1563
+    },
+    {
+      "path": "assets/prompt.json",
+      "sha256": "6b590fc427a8262e2c07d4097ae213384d70d9ac9d62357bb0d26485eb19fc50",
+      "bytes": 498
+    },
+    {
+      "path": "references/abc-editing.md",
+      "sha256": "398e239ab21d6a05bbf943bf9f71aaa81886d735b877e52548b04f5543f14c43",
+      "bytes": 12858
+    },
+    {
+      "path": "references/editing-workflows.md",
+      "sha256": "6d1ed38facc21e9670d16891561885c2e360e8df3ebc382a147a6a6467a3b398",
+      "bytes": 9514
+    },
+    {
+      "path": "references/generation-and-covers.md",
+      "sha256": "f8bc42ce439747bf6022ac410b45edf6f915fc669030048b76c576d40e644a22",
+      "bytes": 12533
+    },
+    {
+      "path": "references/listening-and-evaluation.md",
+      "sha256": "ea41431718aef6e3fc3aa94d84bde3e883bac8c3022cab9922907037ece1ee73",
+      "bytes": 8143
+    },
+    {
+      "path": "references/models-and-setup.md",
+      "sha256": "9b2b94bbf64adc1397b40597e4db52e9e68d92b6faef05438b5e8d61570b59b1",
+      "bytes": 17287
+    },
+    {
+      "path": "scripts/abc_tools.py",
+      "sha256": "ea04b922dacebec7ad257a2f8d83bdb5dfecb7a23110c1a3121c5c41c313930e",
+      "bytes": 15734
+    },
+    {
+      "path": "scripts/common.py",
+      "sha256": "2929619bd37a176c87c37fdcde9864613d4d5172ca2d89d724aa450a4d7053be",
+      "bytes": 951
+    },
+    {
+      "path": "scripts/listen.py",
+      "sha256": "6cbaab9aa28a59ab7838793ee7609367a500ce5518026b601aa8904da3cbee45",
+      "bytes": 14481
+    },
+    {
+      "path": "scripts/run_yue2.py",
+      "sha256": "d931c1afc9dbb3f5762dfdaff9c826516e1e09de931a26aea5562f3a0cdef508",
+      "bytes": 10401
+    },
+    {
+      "path": "scripts/transcribe.py",
+      "sha256": "e1571294bdcf7c0e9c79d8e8d21f48363fc8deb66437c0a8a728895718b6caa6",
+      "bytes": 5897
+    }
+  ]
+}

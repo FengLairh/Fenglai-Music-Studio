@@ -1,0 +1,55 @@
+{
+  "version": "0.5.7",
+  "presets": [
+    {
+      "id": "female",
+      "sourceId": "e3615d0e-e8a4-a7b6-b477-136852f52e5b",
+      "seconds": 17.36,
+      "sha256": "0d90ea887e2a20693b40f618a5c8f4809f674d12ed7cae42f6be40c5f07a3fe9",
+      "modelIdentity": {
+        "Qwen/Qwen3-TTS-12Hz-1.7B-VoiceDesign": "5ecdb67327fd37bb2e042aab12ff7391903235d3"
+      },
+      "synthetic": true
+    },
+    {
+      "id": "male",
+      "sourceId": "e23a8ff1-1584-08db-58c0-ae259df9ad43",
+      "seconds": 20.88,
+      "sha256": "68b7d2b7543a0c793340100bd2f73c2a3f30984e0a49a78b5c3acc0a49f3be81",
+      "modelIdentity": {
+        "Qwen/Qwen3-TTS-12Hz-1.7B-VoiceDesign": "5ecdb67327fd37bb2e042aab12ff7391903235d3"
+      },
+      "synthetic": true
+    },
+    {
+      "id": "boy",
+      "sourceId": "51860be9-01fd-7f12-5906-01cc971f7a75",
+      "seconds": 18.08,
+      "sha256": "a62efedb0ae94efd2e93033cf34ad9002332da71d789f347922a21d87c6f5fbe",
+      "modelIdentity": {
+        "Qwen/Qwen3-TTS-12Hz-1.7B-VoiceDesign": "5ecdb67327fd37bb2e042aab12ff7391903235d3"
+      },
+      "synthetic": true
+    },
+    {
+      "id": "girl",
+      "sourceId": "20d3cd05-c245-d47a-094e-5b3c9443979b",
+      "seconds": 16.48,
+      "sha256": "42c2cc16cb0381082dfe3751b8558eb498667295aafff169d14088d17d99515d",
+      "modelIdentity": {
+        "Qwen/Qwen3-TTS-12Hz-1.7B-VoiceDesign": "5ecdb67327fd37bb2e042aab12ff7391903235d3"
+      },
+      "synthetic": true
+    },
+    {
+      "id": "elder",
+      "sourceId": "9c4bccc2-cd75-9b60-5c55-267d3573f8f2",
+      "seconds": 18.4,
+      "sha256": "2d3a5202ef62ca5226b3ed01f4bad2228a32e9c9d07f4e49ef2365dec7e9eb86",
+      "modelIdentity": {
+        "Qwen/Qwen3-TTS-12Hz-1.7B-VoiceDesign": "5ecdb67327fd37bb2e042aab12ff7391903235d3"
+      },
+      "synthetic": true
+    }
+  ]
+}

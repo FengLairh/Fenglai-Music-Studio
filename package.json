@@ -1,0 +1,204 @@
+{
+  "name": "yue-studio-desktop",
+  "version": "0.10.0",
+  "description": "Fenglai音乐工作台 — 本地 AI 音乐创作与 Cover",
+  "author": "YuE Studio contributors",
+  "license": "Apache-2.0",
+  "main": "desktop/main.cjs",
+  "scripts": {
+    "start": "node scripts/start.cjs",
+    "test": "node --test tests/*.test.cjs",
+    "dist": "electron-builder --win dir",
+    "pack": "node scripts/package.cjs"
+  },
+  "devDependencies": {
+    "@tabler/icons": "3.35.0",
+    "7zip-bin": "5.2.0",
+    "abcjs": "6.7.0",
+    "electron": "44.3.0",
+    "electron-builder": "26.15.3",
+    "pinyin-pro": "3.29.4",
+    "playwright": "1.63.0"
+  },
+  "build": {
+    "appId": "studio.yue.desktop",
+    "productName": "Fenglai音乐工作台",
+    "directories": {
+      "output": "release/0.10.0"
+    },
+    "files": [
+      "desktop/**/*",
+      "ui/**/*",
+      "package.json"
+    ],
+    "extraResources": [
+      {
+        "from": "backend",
+        "to": "backend"
+      },
+      {
+        "from": "vendor/YuE",
+        "to": "vendor/YuE",
+        "filter": [
+          "**/*",
+          "!.git/**",
+          "!**/__pycache__/**",
+          "!assets/**",
+          "!tests/**",
+          "!build/**",
+          "!src/*.egg-info/**"
+        ]
+      },
+      {
+        "from": "tools",
+        "to": "tools"
+      },
+      {
+        "from": "vendor/Seed-VC",
+        "to": "vendor/Seed-VC",
+        "filter": [
+          "inference.py",
+          "hf_utils.py",
+          "LICENSE",
+          "README.md",
+          "modules/**",
+          "configs/**",
+          "!**/__pycache__/**",
+          "!**/*.pyc"
+        ]
+      },
+      {
+        "from": "voice-models.lock.json",
+        "to": "voice-models.lock.json"
+      },
+      {
+        "from": "licenses",
+        "to": "licenses"
+      },
+      {
+        "from": "models.lock.json",
+        "to": "models.lock.json"
+      },
+      {
+        "from": "README.md",
+        "to": "README.md"
+      },
+      {
+        "from": "docs",
+        "to": "docs",
+        "filter": [
+          "VALIDATION.md",
+          "generation-smoke.json",
+          "playback-smoke.json",
+          "cover-generation-smoke.json",
+          "cover-desktop-smoke.json",
+          "cover-runtime-freeze.txt",
+          "cover-full-score-smoke.json",
+          "cover-portable-smoke.json",
+          "voice-*.json",
+          "voice-runtime-freeze.txt",
+          "ASSISTANT-0.4.0.md",
+          "assistant-*.json",
+          "WORKBENCH-0.5.0.md",
+          "workbench-*.json",
+          "DEEPSEEK-0.5.1.md",
+          "LYRICS-0.5.2.md",
+          "lyric-fit-*.json",
+          "HISTORY-0.5.3.md",
+          "history-deletion-desktop.json",
+          "LYRICS-COVER-0.5.4.md",
+          "lyrics-recognition-*.json",
+          "WAVEFORM-0.5.5.md",
+          "waveform-desktop-smoke.json",
+          "QWEN-ASR-0.5.6.md",
+          "qwen-asr-native.json",
+          "TIMBRE-0.5.7.md",
+          "timbre-native.json",
+          "timbre-desktop.json",
+          "SCORE-EDITING-0.5.8.md",
+          "score-editing-desktop.json",
+          "SCORE-POSITION-0.5.9.md",
+          "score-position-desktop.json",
+          "FIELD-WORKSPACE-0.6.0.md",
+          "field-workspace-desktop.json",
+          "STUDIO-SHELL-0.7.0.md",
+          "studio-shell-desktop.json",
+          "COVER-LAYOUT-0.7.1.md",
+          "cover-layout-desktop.json",
+          "THEME-0.7.2.md",
+          "theme-desktop.json",
+          "EDITOR-INPUT-0.7.3.md",
+          "editor-input-desktop.json",
+          "OFFICIAL-OUTPUT-0.7.4.md",
+          "official-output-desktop.json",
+          "SCORE-FOLLOW-0.7.5.md",
+          "score-follow-desktop.json",
+          "GENERATED-PLAYBACK-0.7.6.md",
+          "generated-playback-desktop.json",
+          "SCORE-SYNC-0.7.7.md",
+          "score-sync-native.json",
+          "score-sync-desktop.json",
+          "LYRIC-SYNC-0.7.8.md",
+          "lyric-sync-native.json",
+          "lyric-sync-desktop.json",
+          "GPU-SELECTION-0.7.9.md",
+          "gpu-selection-native.json",
+          "gpu-selection-desktop.json",
+          "VOICE-WORKSPACE-0.8.0.md",
+          "voice-workspace-desktop.json",
+          "SCORE-LYRICS-0.8.1.md",
+          "score-lyrics-desktop.json",
+          "score-lyrics-real-api.json",
+          "COVER-CATEGORIES-0.8.2.md",
+          "cover-categories-desktop.json",
+          "MUSIC-STYLE-0.9.0.md",
+          "music-style-native.json",
+          "music-style-desktop.json",
+          "PRONUNCIATION-0.9.1.md",
+          "pronunciation-desktop.json",
+          "PRONUNCIATION-DIRECT-0.9.2.md",
+          "pronunciation-direct-desktop.json",
+          "FENGLAI-0.10.0.md",
+          "fenglai-desktop.json",
+          "upstream-20260917.json",
+          "auto-alignment-native.json"
+        ]
+      },
+      {
+        "from": "cover-models.lock.json",
+        "to": "cover-models.lock.json"
+      },
+      {
+        "from": "vendor/yue2-music-skill",
+        "to": "vendor/yue2-music-skill"
+      },
+      {
+        "from": "lyrics-models.lock.json",
+        "to": "lyrics-models.lock.json"
+      },
+      {
+        "from": "voice-presets",
+        "to": "voice-presets"
+      },
+      {
+        "from": "voice-design-models.lock.json",
+        "to": "voice-design-models.lock.json"
+      },
+      {
+        "from": "score-sync-models.lock.json",
+        "to": "score-sync-models.lock.json"
+      },
+      {
+        "from": "music-style-models.lock.json",
+        "to": "music-style-models.lock.json"
+      }
+    ],
+    "win": {
+      "target": "dir",
+      "signAndEditExecutable": true,
+      "executableName": "YuE Studio",
+      "icon": "ui/assets/fenglai.ico"
+    },
+    "asar": true
+  }
+}

@@ -1,0 +1,130 @@
+{
+  "schema": 1,
+  "upstream": "https://github.com/multimodal-art-projection/YuE",
+  "commit": "88da114a67df892af0329472073b96a5ef700b93",
+  "python": "3.12.9",
+  "models": [
+    {
+      "name": "YuE2-3B",
+      "repo": "m-a-p/YuE2-3B",
+      "revision": "29b3558dd46954a0cd9021dc76d5c91864a0f1c7",
+      "files": [
+        "LICENSE",
+        "THIRD_PARTY_NOTICES.md",
+        "config.json",
+        "generation_config.json",
+        "licenses/SnakeBeta-NVIDIA-MIT.txt",
+        "licenses/stable-audio-tools-MIT.txt",
+        "model.safetensors",
+        "qwen.tiktoken",
+        "weights_manifest.json",
+        "yue2_generation_config.json"
+      ],
+      "sizes": [
+        {
+          "name": "LICENSE",
+          "bytes": 20309,
+          "gitBlob": "5b4b50fd3e4d4cadbc54c49cab3552d0eb303d48"
+        },
+        {
+          "name": "THIRD_PARTY_NOTICES.md",
+          "bytes": 793,
+          "gitBlob": "8178461b1f6ec6f9977cf0e03b93abd39f5ba1af"
+        },
+        {
+          "name": "config.json",
+          "bytes": 959,
+          "gitBlob": "9584e50ba9d6e487690544e14dd7555edbe27973"
+        },
+        {
+          "name": "generation_config.json",
+          "bytes": 204,
+          "gitBlob": "041d89f512a1b79c13e1a3dee54b5a9bc7c26cad"
+        },
+        {
+          "name": "licenses/SnakeBeta-NVIDIA-MIT.txt",
+          "bytes": 1076,
+          "gitBlob": "e9663595cc28938f88d6299acd3ba791542e4c0c"
+        },
+        {
+          "name": "licenses/stable-audio-tools-MIT.txt",
+          "bytes": 1069,
+          "gitBlob": "f119f94cf2ec8269020dd0d8140a4c4b83cc65a1"
+        },
+        {
+          "name": "model.safetensors",
+          "bytes": 7261441640,
+          "sha256": "1d55c42c1a9875c34f5d736e15078449992b044e807ce2a138e6cf289a1e59e9",
+          "gitBlob": "3314789dffff7318458e58ea9c615157ac59774a"
+        },
+        {
+          "name": "qwen.tiktoken",
+          "bytes": 2561218,
+          "gitBlob": "9b9b0e0416d84d7c88333eb261c77e5fe2d7f7be"
+        },
+        {
+          "name": "weights_manifest.json",
+          "bytes": 179,
+          "gitBlob": "5ac0adb948bf8d8987ce7a1401fc39d0842b709d"
+        },
+        {
+          "name": "yue2_generation_config.json",
+          "bytes": 466,
+          "gitBlob": "f8214009f5bb5425319e4519b12e4853ad72acf3"
+        }
+      ]
+    },
+    {
+      "name": "YuE2-Vae",
+      "repo": "m-a-p/YuE2-Vae",
+      "revision": "9a94e1d0ea9f8087e98f77fa88df4a4068104d2a",
+      "files": [
+        "LICENSE",
+        "THIRD_PARTY_NOTICES.md",
+        "config.json",
+        "licenses/SnakeBeta-NVIDIA-MIT.txt",
+        "licenses/stable-audio-tools-MIT.txt",
+        "model.safetensors",
+        "weights_manifest.json"
+      ],
+      "sizes": [
+        {
+          "name": "LICENSE",
+          "bytes": 20309,
+          "gitBlob": "5b4b50fd3e4d4cadbc54c49cab3552d0eb303d48"
+        },
+        {
+          "name": "THIRD_PARTY_NOTICES.md",
+          "bytes": 793,
+          "gitBlob": "8178461b1f6ec6f9977cf0e03b93abd39f5ba1af"
+        },
+        {
+          "name": "config.json",
+          "bytes": 1378,
+          "gitBlob": "f68832bef1b99f53dd70460f6b0d336971a664b8"
+        },
+        {
+          "name": "licenses/SnakeBeta-NVIDIA-MIT.txt",
+          "bytes": 1076,
+          "gitBlob": "e9663595cc28938f88d6299acd3ba791542e4c0c"
+        },
+        {
+          "name": "licenses/stable-audio-tools-MIT.txt",
+          "bytes": 1069,
+          "gitBlob": "f119f94cf2ec8269020dd0d8140a4c4b83cc65a1"
+        },
+        {
+          "name": "model.safetensors",
+          "bytes": 530512720,
+          "sha256": "807ce9d5149fa27c5ad3e6582058469852e908f6c5acc8c8aa338e7ab7751346",
+          "gitBlob": "f02d9dc133e0c3013de3431295d587cb105d0512"
+        },
+        {
+          "name": "weights_manifest.json",
+          "bytes": 178,
+          "gitBlob": "c663bbfcc6238d5b35cd61bee56e6aab4c7e3876"
+        }
+      ]
+    }
+  ]
+}

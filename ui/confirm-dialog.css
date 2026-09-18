@@ -1,0 +1,4 @@
+.studio-confirm{width:min(480px,calc(100vw - 40px));max-height:calc(100vh - 80px);padding:24px;border:1px solid var(--line);border-radius:12px;background:var(--surface);color:var(--text);box-shadow:var(--shadow)}
+.studio-confirm::backdrop{background:#0006;backdrop-filter:blur(2px)}
+.studio-confirm h2{font-size:18px;margin:0 0 16px}.studio-confirm p{white-space:pre-wrap;font-size:13px;color:var(--text)}
+.confirm-actions{display:flex;justify-content:flex-end;gap:10px;margin-top:24px}

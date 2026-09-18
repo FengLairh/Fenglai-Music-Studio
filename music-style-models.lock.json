@@ -1,0 +1,109 @@
+{
+  "models": [
+    {
+      "name": "Qwen2.5-Omni-3B",
+      "repo": "Qwen/Qwen2.5-Omni-3B",
+      "revision": "f75b40e3da2003cdd6e1829b1f420ca70797c34e",
+      "files": [
+        "LICENSE",
+        "README.md",
+        "added_tokens.json",
+        "chat_template.json",
+        "config.json",
+        "generation_config.json",
+        "merges.txt",
+        "model-00001-of-00003.safetensors",
+        "model-00002-of-00003.safetensors",
+        "model-00003-of-00003.safetensors",
+        "model.safetensors.index.json",
+        "preprocessor_config.json",
+        "special_tokens_map.json",
+        "tokenizer.json",
+        "tokenizer_config.json",
+        "vocab.json"
+      ],
+      "sizes": [
+        {
+          "name": "LICENSE",
+          "bytes": 7387,
+          "gitBlob": "e01d337d67d910e44ed3d191914ab4a3682e6d7e"
+        },
+        {
+          "name": "README.md",
+          "bytes": 36788,
+          "gitBlob": "5e0410d004426a8bfb6a8ce339798e004932966c"
+        },
+        {
+          "name": "added_tokens.json",
+          "bytes": 579,
+          "gitBlob": "4562256351969d3b68f81fd5623ae42a9c7fbb25"
+        },
+        {
+          "name": "chat_template.json",
+          "bytes": 1313,
+          "gitBlob": "e696060ab7ab6e20f60e4e09b18e5da4c1830000"
+        },
+        {
+          "name": "config.json",
+          "bytes": 13183,
+          "gitBlob": "b384ba8df87edb013db2077327643bc3c885e49c"
+        },
+        {
+          "name": "generation_config.json",
+          "bytes": 74,
+          "gitBlob": "1c1ac9d737684b833c80a438e30fc3ba53e89bd4"
+        },
+        {
+          "name": "merges.txt",
+          "bytes": 1671853,
+          "gitBlob": "31349551d90c7606f325fe0f11bbb8bd5fa0d7c7"
+        },
+        {
+          "name": "model-00001-of-00003.safetensors",
+          "bytes": 4994850880,
+          "sha256": "349972cebff443030e9e96e1e930d7230979c6961cf046fa29fc580e4bcf49a6"
+        },
+        {
+          "name": "model-00002-of-00003.safetensors",
+          "bytes": 4999787448,
+          "sha256": "b29a76dfefb3aa33a5bd0faa19c681d039a44de57223653ea0e933df728c6d8c"
+        },
+        {
+          "name": "model-00003-of-00003.safetensors",
+          "bytes": 1978024880,
+          "sha256": "8f2138170a87ec604b53232491a96d6dcf19e0724aca37e69aace143e508b170"
+        },
+        {
+          "name": "model.safetensors.index.json",
+          "bytes": 241817,
+          "gitBlob": "0f020dad805c3e7ed7f3b5b5f151e51ca58bad6c"
+        },
+        {
+          "name": "preprocessor_config.json",
+          "bytes": 667,
+          "gitBlob": "63c79f1c43bce173ab13d94096dea54b3688436f"
+        },
+        {
+          "name": "special_tokens_map.json",
+          "bytes": 832,
+          "gitBlob": "8c2a71eaac0f526df324364d953503def113b7a1"
+        },
+        {
+          "name": "tokenizer.json",
+          "bytes": 11421870,
+          "sha256": "8441917e39ae0244e06d704b95b3124795cec478e297f9afac39ba670d7e9d99"
+        },
+        {
+          "name": "tokenizer_config.json",
+          "bytes": 6469,
+          "gitBlob": "22c6d3668a32e4fe6dc09331bff96e7cc3a2290f"
+        },
+        {
+          "name": "vocab.json",
+          "bytes": 2776833,
+          "gitBlob": "4783fe10ac3adce15ac8f358ef5462739852c569"
+        }
+      ]
+    }
+  ]
+}

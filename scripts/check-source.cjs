@@ -1,0 +1,6 @@
+const fs=require('fs'),path=require('path'),{execFileSync}=require('child_process');
+const root=path.resolve(__dirname,'..'),files=execFileSync('git',['ls-files','-z'],{cwd:root,encoding:'utf8'}).split('\0').filter(Boolean),issues=[];
+const patterns=[/gh[pousr]_[A-Za-z0-9]{30,}/g,/github_pat_[A-Za-z0-9_]{50,}/g,/sk-[A-Za-z0-9_-]{32,}/g,/-----BEGIN (?:RSA |EC |OPENSSH )?PRIVATE KEY-----/g];let bytes=0;
+for(const name of files){const p=path.join(root,name),b=fs.readFileSync(p);bytes+=b.length;if(b.length>40*1024*1024)issues.push({name,kind:'size'});if(/(^|\/)(data|node_modules|credentials|runtime|release|\.git)\//.test(name)||/\.env$|\.safetensors$|\.exe$/.test(name))issues.push({name,kind:'excluded-path'});if(!b.includes(0)){const text=b.toString('utf8');for(const re of patterns){re.lastIndex=0;if(re.test(text))issues.push({name,kind:'credential-pattern'});}}}
+for(const name of ['README.md','README.en.md','docs/SHOWCASE.zh-CN.md','docs/SHOWCASE.en.md']){const text=fs.readFileSync(path.join(root,name),'utf8');for(const m of text.matchAll(/(?:\]\(|src=")([^\s)"#]+)(?:\)|")/g)){if(/^(https?:|mailto:)/.test(m[1]))continue;if(!fs.existsSync(path.resolve(root,path.dirname(name),m[1])))issues.push({name,kind:'broken-link',target:m[1]});}}
+console.log(JSON.stringify({files:files.length,bytes,issues},null,2));if(issues.length)process.exitCode=1;
