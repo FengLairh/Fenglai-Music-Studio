@@ -96,7 +96,7 @@ class OfficialSkill {
   return content.toString('utf8');
  }
  context(mode,task){
-  const files=['SKILL.md','references/generation-and-covers.md','references/listening-and-evaluation.md'];
+  const files=['SKILL.md','references/generation-and-covers.md','references/listening-and-evaluation.md','instrumental/README.md','instrumental/references/cover.md'];
   if(mode==='cover'||task==='score')files.push('references/editing-workflows.md','references/abc-editing.md');
   return files.map(f=>`\n--- Official YuE skill: ${f} ---\n${this.read(f)}`).join('\n');
  }

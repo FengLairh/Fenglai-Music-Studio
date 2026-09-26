@@ -15,7 +15,7 @@ function fixture(fetchImpl=async()=>sse(),timeoutMs=3000){
  return {root,assistant:new MusicAssistant(project,root,vault,{fetchImpl,timeoutMs})};
 }
 test('official skill is pinned, verified, and supplies task-specific guidance',()=>{
- const skill=new OfficialSkill(project);assert.equal(skill.status().revision,'0edaf2f4053ef4731334b8329834b107977f9637');
+ const skill=new OfficialSkill(project);assert.equal(skill.status().revision,'72272f907522dcca2e97c848d6c8f0d343999183');
  assert.match(skill.context('cover'),/syllable|syllables/);assert.match(skill.context('create'),/reference_audio/);
  assert.throws(()=>skill.read('../desktop/main.cjs'));
  const old=skill.manifest.files.find(f=>f.path==='SKILL.md');old.sha256='bad';assert.throws(()=>skill.read('SKILL.md'),/校验/);

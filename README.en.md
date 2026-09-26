@@ -10,6 +10,10 @@ A Windows desktop music workstation built around YuE2, combining composition, so
 
 ## Features
 
+### 0.11.0: instrumental generation and covers
+
+Composition and cover workspaces now offer Song / Instrumental output. Instrumental mode keeps lyric drafts but excludes them from singing. Official tools transfer reference melodies into the instrumental voice; without a score, YuE2 plans one first. Harmony preservation is optional. The existing Windows single-GPU engine and model weights are reused. The official music skill is pinned to **1.2.0 / 72272f9**. A real reference-score GPU run produced 49.76 seconds of 48 kHz audio without reported truncation; score-transfer invariants passed. Model-planning integration was tested with a stub, not a new end-to-end GPU planning run. Audio quality and absence of vocals have not been human-reviewed. Duration may differ from score duration.
+
 | Workspace | Capabilities |
 | --- | --- |
 | Compose | Theme, style, lyrics and ABC score inputs with optional inline DeepSeek assistance |

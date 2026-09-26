@@ -75,6 +75,8 @@ function validateRequest(input) {
     return {kind: 'transcribe', sourceId, start, end, melodyOnly: input.melodyOnly, title: String(input.title || '音频转谱').slice(0, 100)};
   }
   if (input.kind && input.kind !== 'generate') throw new Error('无效任务类型');
+  const instrumental=input.instrumental??false;if(typeof instrumental!=='boolean')throw Error('无效的纯音乐模式');
+  if(instrumental&&input.coverMode==='lyrics-only')throw Error('纯音乐不能使用只改词模式');
   const coverMode=input.coverMode||'arrange';
   if(!['arrange','lyrics-only','rewrite'].includes(coverMode))throw Error('无效的 Cover 分类');
   if(coverMode!=='arrange'&&!input.transcriptionId)throw Error('Cover 分类需要原曲转谱记录');
@@ -94,13 +96,14 @@ function validateRequest(input) {
     if (value.length > limit) throw new Error(`${key} 超过 ${limit} 字符限制`);
     result[key] = value;
   }
-  if (!result.style || !result.lyrics) throw new Error('请填写音乐风格和歌词');
-  if(input.pronunciation!==undefined){
+  if (!result.style || (!instrumental&&!result.lyrics)) throw new Error('请填写音乐风格和歌词');
+  if(instrumental){result.instrumental=true;result.lyrics='';result.keepHarmony=input.keepHarmony??false;if(typeof result.keepHarmony!=='boolean')throw Error('无效的和声选项');}
+  if(!instrumental&&input.pronunciation!==undefined){
     const P=require('../ui/pronunciation.js'),raw=input.lyrics||'',marks=P.validate(input.pronunciation,raw);
     result.pronunciation=P.rebase(raw,result.lyrics,marks);
   }
   result.title ||= '未命名作品';
-  result.cot = input.cot || 'full';
+  result.cot = instrumental ? (input.keepHarmony?'full':'melody') : input.cot || 'full';
   if (!['full', 'melody', 'off'].includes(result.cot)) throw new Error('无效的作曲模式');
   if (result.abc && result.cot === 'off') throw new Error('使用 ABC 乐谱时请选择完整作曲或旋律模式');
   result.seed = input.seed ?? 42;

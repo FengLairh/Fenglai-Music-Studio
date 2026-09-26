@@ -7,7 +7,7 @@ const oldAssistant=q('#page-assistant'),settings=q('#page-models');
 const apiCard=q('#assistant-key').closest('.assistant-card'),skillCard=q('#assistant-skill-read').closest('.assistant-card');
 oldAssistant.replaceChildren();oldAssistant.remove();q('nav [data-page="assistant"]').remove();
 q('nav [data-page="models"]').dataset.page='settings';q('nav [data-page="settings"]').innerHTML='<i data-icon="settings"></i>设置';
-q('.sidebar-bottom').prepend(q('nav [data-page="settings"]'));q('.version').firstChild.textContent='Fenglai 0.10.0 ';
+q('.sidebar-bottom').prepend(q('nav [data-page="settings"]'));q('.version').firstChild.textContent='Fenglai 0.11.0 ';
 settings.id='page-settings';retained.set('page-settings',settings);
 settings.querySelector('.page-heading').innerHTML='<div><div class="eyebrow">STUDIO PREFERENCES</div><h1>设置</h1><p>AI 服务、生成参数、模型与环境，统一在这里管理。</p></div>';
 const configuration=el('div','workbench-settings-grid');configuration.append(apiCard,skillCard);settings.querySelector('.page-heading').after(configuration);

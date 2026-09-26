@@ -37,11 +37,12 @@ function navigate(page) {
 $$('[data-page]').forEach(el => el.addEventListener('click', () => navigate(el.dataset.page)));
 $('.brand').addEventListener('click', e => {e.preventDefault(); navigate('create');});
 $('#goto-setup').onclick = () => navigate('models');
-function values() {return {title:$('#song-title').value,theme:$('#song-theme').value,style:$('#song-style').value,lyrics:$('#song-lyrics').value,abc:$('#song-abc').value,cot,seed:Number($('#seed').value),profile:$('#profile').value,maxTokens:Number($('#max-tokens').value),workbench:typeof workbenchData==='function'?workbenchData('create'):undefined};}
+function values() {return {...window.instrumentalUI?.data('create'),title:$('#song-title').value,theme:$('#song-theme').value,style:$('#song-style').value,lyrics:$('#song-lyrics').value,abc:$('#song-abc').value,cot,seed:Number($('#seed').value),profile:$('#profile').value,maxTokens:Number($('#max-tokens').value),workbench:typeof workbenchData==='function'?workbenchData('create'):undefined};}
 function updateCounts() {$('#lyrics-count').textContent = `${$('#song-lyrics').value.length.toLocaleString()} 字符`;}
 function saveDraft() {if(typeof workbenchEditors!=='undefined')workbenchEditors.create?.pull();updateCounts(); $('#draft-status').textContent = '正在保存…'; clearTimeout(draftTimer); draftTimer = setTimeout(safe(async () => {await api.saveDraft(values()); $('#draft-status').textContent = '草稿已保存在本机';}), 500);}
 function setCot(value) {cot = ['full','melody','off'].includes(value) ? value : 'full'; $$('[data-cot]').forEach(el => el.classList.toggle('selected', el.dataset.cot === cot)); $('#mode-hint').textContent = hints[cot];}
 function fillDraft(draft) {
+  window.instrumentalUI?.restore('create',draft);
   $('#song-title').value = draft.title || ''; $('#song-theme').value = draft.theme || ''; $('#song-style').value = draft.style || ''; $('#song-lyrics').value = draft.lyrics || ''; $('#song-abc').value = draft.abc || '';
   $('#seed').value = draft.seed ?? 42; $('#profile').value = draft.profile || 'low-memory'; $('#max-tokens').value = String(draft.maxTokens || 3000); setCot(draft.cot); updateCounts();
   if (draft.abc) $('#score-details').open = true;
@@ -61,7 +62,7 @@ $('#sample-lyrics').onclick = async () => {
 $('#add-section').onclick = () => {const el = $('#song-lyrics'); const insert = '\n\n[Chorus]\n'; el.setRangeText(insert, el.selectionStart, el.selectionEnd, 'end'); el.focus(); saveDraft();};
 $('#import-lyrics').onclick = safe(async () => {const text = await api.importText('lyrics'); if (text !== null) {if (text.length > 12000) throw new Error('歌词超过 12000 字符限制'); $('#song-lyrics').value = text; saveDraft();}});
 $('#import-score').onclick = safe(async () => {const text = await api.importText('abc'); if (text !== null) {if (text.length > 40000) throw new Error('乐谱超过 40000 字符限制'); $('#song-abc').value = text; if (cot === 'off') setCot('melody'); saveDraft();}});
-const generate = safe(async () => {const data = values(); if (!data.lyrics.trim() || !data.style.trim()) throw new Error('请先填写歌词和音乐风格'); if(data.abc.trim())ScoreModel.assertValid(data.abc);if(!await workbenchEditors.create.checkLyricsBeforeGenerate())return;const job=await api.createJob({...data,pronunciation:data.workbench?.pronunciation});workbenchTrack('create',job,data);toast('已加入本地生成队列'); await refreshJobs();});
+const generate = safe(async () => {const data = values(); if ((!data.instrumental&&!data.lyrics.trim()) || !data.style.trim()) throw new Error('请先填写歌词和音乐风格'); if(data.abc.trim())ScoreModel.assertValid(data.abc);if(!data.instrumental&&!await workbenchEditors.create.checkLyricsBeforeGenerate())return;const job=await api.createJob({...data,pronunciation:data.workbench?.pronunciation});workbenchTrack('create',job,data);toast('已加入本地生成队列'); await refreshJobs();});
 $('#generate').onclick = generate;
 document.addEventListener('keydown', e => {if (!e.isComposing && !confirmDialog.open && (e.ctrlKey || e.metaKey) && e.key === 'Enter' && currentPage === 'create' && !$('#generate').disabled) {e.preventDefault(); generate();}});
 

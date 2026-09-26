@@ -63,6 +63,9 @@ def generate(root, request_file, output):
             memory_budget_gib=min(16 if low else 24, total), offload_ar=low,
             vae_core_frames=256 if low else 1024, generation_config=config,
             local_files_only=True, progress=True) as pipe:
+        if request.get("instrumental"):
+            from instrumental_adapter import prepare_instrumental
+            request = prepare_instrumental(pipe, request, output, emit)
         song = pipe(style=request["style"], lyrics=request["lyrics"], cot=request["cot"],
                     seed=request["seed"], abc=request.get("abc") or None, on_token=on_token)
         emit("stage", stage="保存音频与乐谱")

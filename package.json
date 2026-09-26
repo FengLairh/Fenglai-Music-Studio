@@ -1,6 +1,6 @@
 {
   "name": "yue-studio-desktop",
-  "version": "0.10.0",
+  "version": "0.11.0",
   "description": "Fenglai音乐工作台 — 本地 AI 音乐创作与 Cover",
   "author": "YuE Studio contributors",
   "license": "Apache-2.0",
@@ -24,7 +24,7 @@
     "appId": "studio.yue.desktop",
     "productName": "Fenglai音乐工作台",
     "directories": {
-      "output": "release/0.10.0"
+      "output": "release/0.11.0"
     },
     "files": [
       "desktop/**/*",

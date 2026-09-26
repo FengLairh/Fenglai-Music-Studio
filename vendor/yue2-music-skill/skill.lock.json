@@ -1,23 +1,14 @@
 {
   "name": "yue2-music",
   "repository": "https://github.com/multimodal-art-projection/YuE",
-  "revision": "0edaf2f4053ef4731334b8329834b107977f9637",
-  "license": "Apache-2.0",
+  "revision": "72272f907522dcca2e97c848d6c8f0d343999183",
+  "release": "yue2-music-v1.2.0",
+  "license": "Apache-2.0; instrumental helpers MIT",
   "files": [
     {
-      "path": "LICENSE",
-      "sha256": "cfc7749b96f63bd31c3c42b5c471bf756814053e847c10f3eb003417bc523d30",
-      "bytes": 11358
-    },
-    {
-      "path": "SKILL.md",
-      "sha256": "d7c010ee8bc6b4338fc53cdc363d2e478ced446a8ff9c6a20346bac5525dfdf9",
-      "bytes": 8496
-    },
-    {
       "path": "agents/openai.yaml",
-      "sha256": "f6565efe55a5ec0aa1a489e74aa90f894ad3fc35a38d1c837977ee26b3bc1fc9",
-      "bytes": 222
+      "sha256": "f8f436aaf83adeb31b6cceef0884ba34e5c71ea020a17cdfde36b1515ece5445",
+      "bytes": 325
     },
     {
       "path": "assets/edit-brief.md",
@@ -28,6 +19,146 @@
       "path": "assets/prompt.json",
       "sha256": "6b590fc427a8262e2c07d4097ae213384d70d9ac9d62357bb0d26485eb19fc50",
       "bytes": 498
+    },
+    {
+      "path": "instrumental/agents/openai.yaml",
+      "sha256": "e88118d8ff5bfc52ef0344e088bd48621dfcc9b3734e7c7b88043fe663a75720",
+      "bytes": 312
+    },
+    {
+      "path": "instrumental/assets/cover-release.json",
+      "sha256": "d5b31d144ae25a148802c7b44eab1612d3609bdb944c71a7a96915cc5df6c5a5",
+      "bytes": 603
+    },
+    {
+      "path": "instrumental/assets/example-ins.abc",
+      "sha256": "4447b55037f5daab52426bdd20e9d08fdb5629ca115354880eca76078333b722",
+      "bytes": 305
+    },
+    {
+      "path": "instrumental/assets/example-original.abc",
+      "sha256": "b16b482baf2da75a0d960569156e520638f2391908fbee514bd180babc5e79f4",
+      "bytes": 314
+    },
+    {
+      "path": "instrumental/assets/example-repairs.json",
+      "sha256": "b435760cd01ae168f62ca290b8e06ce3da91a1e75c3d5cc49806b0b25c0c7a75",
+      "bytes": 772
+    },
+    {
+      "path": "instrumental/assets/example-style.txt",
+      "sha256": "02cdfdd19f67ae20ba2e669a7c60ec1e557df6accc019213c9772835adfbf2a0",
+      "bytes": 269
+    },
+    {
+      "path": "instrumental/assets/release.json",
+      "sha256": "4e9a9bcd2541790da2541126b6549c9ebd6ba4d42980da9e325980b883f79172",
+      "bytes": 2151
+    },
+    {
+      "path": "instrumental/assets/validation.json",
+      "sha256": "f8a9927f20ed13e6fd4527415652b865872e6e42e883449f434740051bfeac03",
+      "bytes": 8698
+    },
+    {
+      "path": "instrumental/bundle-manifest.json",
+      "sha256": "0a424a55b027a08fd80dcffb7c18a6b060d2dec21b500dc650ebf71f0a3bbd87",
+      "bytes": 3768
+    },
+    {
+      "path": "instrumental/LICENSE",
+      "sha256": "689d887cb61b76599b8bded2066dbd4cd728d5345533925585ee1270ae7315d1",
+      "bytes": 1080
+    },
+    {
+      "path": "instrumental/PRIVACY.md",
+      "sha256": "2761e081e7176d4cc0de3eb7e5fd3e9becce52a5c9e357ec81f3ff8b92120e60",
+      "bytes": 2381
+    },
+    {
+      "path": "instrumental/README.md",
+      "sha256": "fc8a77b705768f41f6fe359e4d3e597501362bff8ceea644f193bc5f1f8319e6",
+      "bytes": 2889
+    },
+    {
+      "path": "instrumental/references/abc-repair.md",
+      "sha256": "e68f4c05278955e1c00fdcc83f3715b82b942dc194231fca700db5da35e87b18",
+      "bytes": 5123
+    },
+    {
+      "path": "instrumental/references/cover.md",
+      "sha256": "39e8590ff9cc51cfed974fd811afe41445ff4c8dae7e23df3b3a953ec5fbb819",
+      "bytes": 2783
+    },
+    {
+      "path": "instrumental/references/event-schema.md",
+      "sha256": "0e518bfaf730d0a83c9c9c2aaeada6ab4dc8b442e7c55e7f89317b391408addc",
+      "bytes": 1780
+    },
+    {
+      "path": "instrumental/references/setup.md",
+      "sha256": "fb967349ceb890b773edc46f6a8b90fbf812714ed76b82ba7a498b50b95f53b8",
+      "bytes": 5128
+    },
+    {
+      "path": "instrumental/requirements-inference.txt",
+      "sha256": "2f24e5cc62394398504336fabf16b4ae7639376a3fc43c8d32eecc908ded9895",
+      "bytes": 192
+    },
+    {
+      "path": "instrumental/scripts/abc_tools.py",
+      "sha256": "ea04b922dacebec7ad257a2f8d83bdb5dfecb7a23110c1a3121c5c41c313930e",
+      "bytes": 15734
+    },
+    {
+      "path": "instrumental/scripts/common.py",
+      "sha256": "2929619bd37a176c87c37fdcde9864613d4d5172ca2d89d724aa450a4d7053be",
+      "bytes": 951
+    },
+    {
+      "path": "instrumental/scripts/compile_score.py",
+      "sha256": "c4eec7f68e3f09b93b45d568a8af640b3f10bb47d31ef6d3b6ce4ae23ac1dea3",
+      "bytes": 10540
+    },
+    {
+      "path": "instrumental/scripts/instrumental.py",
+      "sha256": "bd294e4a57f1100722f7eeb14ed2457e1bc65b7a6cf516c4225fb1c3e7a441b0",
+      "bytes": 27464
+    },
+    {
+      "path": "instrumental/scripts/instrumentalize.py",
+      "sha256": "a769111656f418cf4298841dc4a7f6be1a50bfae1e66b1bccfaca3eacf948681",
+      "bytes": 5980
+    },
+    {
+      "path": "instrumental/scripts/setup_runtime.py",
+      "sha256": "39a57ace45510890d877ffda87e9361809290ff3c21229f2414eb5435ea78e6b",
+      "bytes": 5991
+    },
+    {
+      "path": "instrumental/scripts/test_tools.py",
+      "sha256": "d33ffc5e501fa92c647f35f7ad37aa5af5cfb977d1c42167af3b448a163fe0c6",
+      "bytes": 27776
+    },
+    {
+      "path": "instrumental/scripts/transcribe_cover.py",
+      "sha256": "d88174a8d7cd4d8b9c86f7c6096f3d59796e2dcdb80a8e2878330273a9b52b34",
+      "bytes": 6071
+    },
+    {
+      "path": "instrumental/scripts/verify_bundle.py",
+      "sha256": "9c1d93bd276b946fbd422a1c64f0a6aeb8cbf934cf2ca228018749d075ec8f20",
+      "bytes": 2338
+    },
+    {
+      "path": "instrumental/SKILL.md",
+      "sha256": "bb4cae9cfbff4355c7b5b8c377a2156c2c36350fd674caea5c9af9e636ecc0c2",
+      "bytes": 4291
+    },
+    {
+      "path": "LICENSE",
+      "sha256": "cfc7749b96f63bd31c3c42b5c471bf756814053e847c10f3eb003417bc523d30",
+      "bytes": 11358
     },
     {
       "path": "references/abc-editing.md",
@@ -78,6 +209,11 @@
       "path": "scripts/transcribe.py",
       "sha256": "e1571294bdcf7c0e9c79d8e8d21f48363fc8deb66437c0a8a728895718b6caa6",
       "bytes": 5897
+    },
+    {
+      "path": "SKILL.md",
+      "sha256": "49909582781c3c144dd2b71f0830ce45901d6a03d645a0b6dff0a35669440152",
+      "bytes": 9585
     }
   ]
 }

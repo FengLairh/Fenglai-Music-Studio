@@ -3,7 +3,7 @@ let coverSources = [], coverSourceId = null, transcriptionId = null, pendingTran
 let coverTimer, coverInitialized = false, coverBusy = false, loadingCoverScore = false, clipStop = null;
 
 function coverValues() {
-  return {...window.coverWorkflow?.data(),sourceId: coverSourceId, transcriptionId, pendingTranscription,
+  return {...window.instrumentalUI?.data('cover'),...window.coverWorkflow?.data(),sourceId: coverSourceId, transcriptionId, pendingTranscription,
     start: Number($('#cover-start').value), end: Number($('#cover-end').value), melodyOnly: $('#cover-mode').value === 'melody',
     title: $('#cover-title').value, theme: $('#cover-theme').value, style: $('#cover-style').value, lyrics: $('#cover-lyrics').value, abc: $('#cover-abc').value,
     profile: $('#cover-profile').value, maxTokens: Number($('#cover-tokens').value), seed: Number($('#cover-seed').value),workbench:typeof workbenchData==='function'?workbenchData('cover'):undefined,lyricRecognition:typeof recognitionData==='function'?recognitionData():undefined};
@@ -166,10 +166,10 @@ $('#cover-transcribe').onclick = safe(async () => {
 $('#cover-generate').onclick = safe(async () => {
   coverBusy = true; renderCoverStatus();
   try {
-    const value = coverValues(),policy=window.coverWorkflow?.request(value)||{}; if (!(policy.style??value.style).trim() || !value.lyrics.trim()) throw new Error('请填写所用音乐风格和本片段的演唱歌词');
+    const value = coverValues(),policy=window.coverWorkflow?.request(value)||{}; if (!(policy.style??value.style).trim() || (!value.instrumental&&!value.lyrics.trim())) throw new Error('请填写所用音乐风格和本片段的演唱歌词');
     ScoreModel.assertValid(value.abc);
-    if(!await workbenchEditors.cover.checkLyricsBeforeGenerate())return;
-    const job=await api.createJob({title: value.title, style: value.style, lyrics: value.lyrics, abc: value.abc, transcriptionId, cot: value.melodyOnly ? 'melody' : 'full', profile: value.profile, maxTokens: value.maxTokens, seed: value.seed,pronunciation:value.workbench?.pronunciation,...policy});
+    if(!value.instrumental&&!await workbenchEditors.cover.checkLyricsBeforeGenerate())return;
+    const job=await api.createJob({...window.instrumentalUI?.data('cover'),title: value.title, style: value.style, lyrics: value.lyrics, abc: value.abc, transcriptionId, cot: value.melodyOnly ? 'melody' : 'full', profile: value.profile, maxTokens: value.maxTokens, seed: value.seed,pronunciation:value.workbench?.pronunciation,...policy});
     workbenchTrack('cover',job,value);toast('Cover 已加入生成队列'); await refreshJobs();
   } finally {coverBusy = false; renderCoverStatus();}
 });
@@ -177,7 +177,7 @@ for (const format of ['abc', 'midi']) $(`#cover-export-${format}`).onclick = saf
 // Avoid overlapping playback when comparing original and generated music.
 $$('audio').forEach(audio => audio.addEventListener('play', () => $$('audio').forEach(other => {if (other !== audio) other.pause();})));
 document.addEventListener('DOMContentLoaded', safe(async () => {
-  coverSources = (await api.listSources()).filter(s=>!s.voiceDesign); const draft = await api.getCoverDraft(); sourceMenu();
+  coverSources = (await api.listSources()).filter(s=>!s.voiceDesign); const draft = await api.getCoverDraft(); window.instrumentalUI?.restore('cover',draft);sourceMenu();
   if (draft) $('#cover-theme').value = draft.theme || '';
   if (draft && coverSources.some(s => s.id === draft.sourceId)) {
     selectCoverSource(draft.sourceId, false);
